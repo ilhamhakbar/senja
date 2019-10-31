@@ -23,6 +23,7 @@ class _HomeState extends State<Home>{
   Widget build(BuildContext context) {
   return Scaffold(
         floatingActionButton: FloatingActionButton(
+          onPressed: (){},
           child: Icon(Icons.add),
           backgroundColor: Color(0xFFbe9b7b),
         ),
@@ -39,8 +40,8 @@ class _HomeState extends State<Home>{
             },
             items: [
               BottomNavigationBarItem(
-                  activeIcon: Icon(Icons.headset),
-                  icon: Icon(Icons.home), title: Text('Home', style: TextStyle(color: Col) ,)),
+                  // activeIcon: Icon(Icons.headset),
+                  icon: Icon(Icons.home), title: Text('Home')),
               BottomNavigationBarItem(
                   icon: Icon(Icons.work), title: Text('Order')),
               BottomNavigationBarItem(

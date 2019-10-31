@@ -23,7 +23,7 @@ class _SplashScreenState extends State<SplashScreen> {
     SizeConfig().init(context);
     return Scaffold(
       body: Container(
-          decoration: BoxDecoration(color: Colors.white),
+          decoration: BoxDecoration(color: Color(0xFFbe9b7b)),
           child: Column(
             children: <Widget>[
               Center(child:
@@ -33,7 +33,7 @@ class _SplashScreenState extends State<SplashScreen> {
                   margin: EdgeInsets.only(top:100),
                   alignment: Alignment.center,
                   child:
-                  Image.asset('res/graphics/ic_logo_black.png')
+                  Image.asset('assets/images/senja_1.png')
               ),
               ),
               Container(margin: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 30.0),

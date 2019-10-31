@@ -4,13 +4,13 @@ import 'package:senja/models/foodModel.dart';
 import 'package:senja/controllers/foodContoller.dart';
 
 
-class FoodCardPicks extends StatefulWidget{
+class FoodPromo extends StatefulWidget{
   @override
-  _FoodCardPicksState createState() => _FoodCardPicksState();
+  _FoodPromoState createState() => _FoodPromoState();
 
 }
 
-class _FoodCardPicksState extends State<FoodCardPicks>{
+class _FoodPromoState extends State<FoodPromo>{
   FoodMenu foodMenu;
   bool isLoading = false;
 
@@ -50,7 +50,7 @@ class _FoodCardPicksState extends State<FoodCardPicks>{
               children: <Widget>[
                 (foodMenu == null || isLoading)?Container(
               child: CircularProgressIndicator(),
-            ):foodCardPicksContainer(),
+            ):foodPromoContainer(),
               ],
             ),
           )
@@ -59,11 +59,10 @@ class _FoodCardPicksState extends State<FoodCardPicks>{
     );
   }
 
-  renderFoodPicksCard(Category foodCategory) {
+  renderFoodPromo(Category foodCategory) {
     return FlatButton(
       onPressed: () {},
-      padding: EdgeInsets.all(0),
-      child: Card(
+      padding: EdgeInsets.all(5.0),
         child: Container(
           height: 200,
           width: 150,
@@ -73,30 +72,29 @@ class _FoodCardPicksState extends State<FoodCardPicks>{
                 foodCategory.image,
                 height: 150,
               ),
-              Container(
-                child: Column(
-                  children: <Widget>[Text(foodCategory.title)],
-                ),
-              ), //Nama makanan
-              Container(
-                child: Text(foodCategory.numbers.toString())  ,
-              ) //Harga
+              // Container(
+              //   child: Column(
+              //     children: <Widget>[Text(foodCategory.title)],
+              //   ),
+              // ), //Nama makanan
+              // Container(
+              //   child: Text(foodCategory.numbers.toString())  ,
+              // ) //Harga
             ],
           ),
         ),
-      ),
     );
   }
 
-  foodCardPicksContainer() {
+  foodPromoContainer() {
     return Container(
       height: 250,
       child: ListView.builder(
           scrollDirection: Axis.horizontal,
           shrinkWrap: true,
-          itemCount: foodMenu.today.length,
+          itemCount: foodMenu.promo.length,
           itemBuilder: (context, i) {
-            return renderFoodPicksCard(foodMenu.today[i]);
+            return renderFoodPromo(foodMenu.promo[i]);
           }),
     );
   }
