@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:senja/pages/homepage.dart';
 import 'package:senja/constants/theme.dart';
+import 'package:senja/pages/order/orderPage.dart';
 
 
 class Home extends StatefulWidget{
@@ -15,7 +16,7 @@ class _HomeState extends State<Home>{
   final _pageOptions = [
     HomePage(),
     Text('Item 2'),
-    Text('Item 3'),
+    Home(),
     Text('Item 4'),
     Text('Item 5'),
   ];
@@ -23,7 +24,9 @@ class _HomeState extends State<Home>{
   Widget build(BuildContext context) {
   return Scaffold(
         floatingActionButton: FloatingActionButton(
-          onPressed: (){},
+          onPressed: (){
+            Navigator.push(context, MaterialPageRoute(builder: (context) => OrderPage()));
+          },
           child: Icon(Icons.add),
           backgroundColor: Color(0xFFbe9b7b),
         ),

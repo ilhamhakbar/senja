@@ -30,15 +30,33 @@ class _HomePageState extends State<HomePage> {
                   Image.asset("assets/images/bgimages.jpeg",
                   height: 250,
                   width: sizeHorizontal*100,
-                  fit: BoxFit.fill,
-                  color: Colors.white,
-                  colorBlendMode: BlendMode.darken,
+                  fit: BoxFit.fill
                   ),
                   Container(
-                    child: Text("Morning, Benaya"),
+              decoration: BoxDecoration(
+                color: Colors.white.withOpacity(0.5),
+              ),
+                  ),
+                  Positioned(
+                    top: 80,
+                    right: sizeHorizontal * 30,
+                    left: sizeHorizontal * 30,
+                    child: Container(
+                  alignment: Alignment.center,
+                  //  padding: EdgeInsets.only(left: 25.0, right: 5.0, bottom: 60.0), 
+                   width: 120,
+                   child: Image.asset("assets/images/senja_1.png"),
+                                     ),
                   ),
                   Container(
-                    child: Text("Our Stoves are heated up!"),
+                    padding: EdgeInsets.only(left: 25.0, right: 5.0, bottom: 60.0),
+                     alignment: Alignment.bottomLeft,
+                    child: Text("Morning, Benaya", style: t2,),
+                  ),
+                  Container(
+                    padding: EdgeInsets.only(left: 25.0, right: 5.0, bottom: 30.0),
+                     alignment: Alignment.bottomLeft,
+                    child: Text("Our stoves are heated up!", style: h2,),
                   )
                 ],
               ),

@@ -39,13 +39,15 @@ class _FoodPromoState extends State<FoodPromo>{
       child: Column(
         children: <Widget>[
           Container(
-            margin: EdgeInsets.only(left: 10.0, top: 10.0),
+           margin: EdgeInsets.only(left: 20.0,top: 20.0),
+            alignment: Alignment.centerLeft,
             child: Text(
-              "Kategori",
-              style: h3,
+              "Promo & Event",
+              style: h4,
             ),
           ),
           Container(
+            padding: EdgeInsets.only(left: 20.0),
             child: Column(
               children: <Widget>[
                 (foodMenu == null || isLoading)?Container(
@@ -62,33 +64,23 @@ class _FoodPromoState extends State<FoodPromo>{
   renderFoodPromo(Category foodCategory) {
     return FlatButton(
       onPressed: () {},
-      padding: EdgeInsets.all(5.0),
+      padding: EdgeInsets.only(right: 10.0),      
         child: Container(
-          height: 200,
-          width: 150,
-          child: Column(
-            children: <Widget>[
-              Image.network(
-                foodCategory.image,
-                height: 150,
-              ),
-              // Container(
-              //   child: Column(
-              //     children: <Widget>[Text(foodCategory.title)],
-              //   ),
-              // ), //Nama makanan
-              // Container(
-              //   child: Text(foodCategory.numbers.toString())  ,
-              // ) //Harga
-            ],
-          ),
-        ),
+          decoration: BoxDecoration(
+                  image: DecorationImage(
+                      image: NetworkImage(foodCategory.image),
+                      fit: BoxFit.cover),
+                  borderRadius: BorderRadius.all(Radius.circular(10)
+                      )),
+              height: 120,
+              width: 200)
     );
   }
 
   foodPromoContainer() {
     return Container(
-      height: 250,
+      height: 120,
+      padding: EdgeInsets.only(top: 5.0),
       child: ListView.builder(
           scrollDirection: Axis.horizontal,
           shrinkWrap: true,

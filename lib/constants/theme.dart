@@ -42,7 +42,7 @@ TextStyle h1 = TextStyle(
 
 TextStyle h2 = TextStyle(
     fontSize: sizeHorizontal * 7,
-    fontWeight: FontWeight.bold
+    fontFamily: "SFBold"
 );
 
 TextStyle h3 = TextStyle(
@@ -61,15 +61,16 @@ TextStyle h5 = TextStyle(
 );
 
 TextStyle t1 = TextStyle(
-    fontSize: sizeHorizontal * 5,
+    fontSize: sizeHorizontal * 8.5,
 );
 
 TextStyle t2 = TextStyle(
-  fontSize: sizeHorizontal * 4,
+  fontSize: sizeHorizontal * 6,
+  fontFamily: "SFRegular"
 );
 
 TextStyle t3 = TextStyle(
-  fontSize: sizeHorizontal * 3,
+  fontSize: sizeHorizontal * 6,
 );
 
 TextStyle t3Url = TextStyle(

@@ -20,7 +20,7 @@ class SenjaAppState extends State<SenjaApp>{
     return MaterialApp(
       title: 'Coba',
       theme: ThemeData(
-        fontFamily: "SFPro",
+        fontFamily: "SFRegular",
         primarySwatch: Colors.blue,
         appBarTheme: AppBarTheme(
               elevation: 0,
