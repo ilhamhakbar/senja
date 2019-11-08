@@ -1,34 +1,42 @@
 import 'package:flutter/material.dart';
-import 'package:senja/widget/Order/orderBestSeller.dart';
+import 'package:senja/product/product_card.dart';
 
-class OrderPage extends StatefulWidget{
+class OrderPage extends StatelessWidget {
   @override
-  _OrderPageState createState() => _OrderPageState();
-}
+  Widget build(BuildContext context) {
+    return _buildPage();
+  }
 
-class _OrderPageState extends State<OrderPage> {
-  @override
-  Widget build(BuildContext context){
-    return Scaffold(
-      appBar: AppBar(
-      actions: <Widget>[
-          Container(
-            margin: EdgeInsets.only(right: 10),
-            child: CircleAvatar(
-              child: Text('AA'),
-              backgroundColor: Colors.blue,
+  Widget _buildPage(){
+    return ListView(
+      children: <Widget>[
+        // Container(
+        //   padding: EdgeInsets.all(16),
+        //   child: Text(
+        //     'Your favourites',
+        //     style: TextStyle(
+        //       fontWeight: FontWeight.bold,
+        //       fontSize: 18,
+        //       fontFamily: 'Lato',
+        //     ),
+        //   ),
+        // ),
+        // MenuListView(true),
+        // Divider(),
+        Container(
+          padding: EdgeInsets.all(16),
+          child: Text(
+            'Best Seller',
+            style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+              fontFamily: 'Lato',
             ),
-            )
-        ],  // title: Text("Order"),
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            OrderBestSeller(), 
-          ],
+          ),
         ),
-      ),
+        MenuListView(false),
+        Divider(),
+      ],
     );
   }
 }

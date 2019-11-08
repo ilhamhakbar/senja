@@ -1,25 +1,60 @@
 import 'package:flutter/material.dart';
 import 'package:senja/constants/theme.dart';
-import 'package:senja/models/foodModel.dart';
-import 'package:senja/controllers/foodContoller.dart';
+import 'package:senja/models/storeMenuModel.dart';
+import 'package:senja/controllers/storeMenuController.dart';
+import 'package:senja/widget/Order/foodMenu.dart';
 
+typedef AddShoppingBag();
+typedef MinShoppingBag();
 class OrderBestSeller extends StatefulWidget {
+
+  final AddShoppingBag addShoppingBag;
+  final MinShoppingBag minShoppingBag;
+  OrderBestSeller({@required this.addShoppingBag, @required this.minShoppingBag});
   @override
   _OrderBestSellerState createState() => _OrderBestSellerState();
 }
 
 class _OrderBestSellerState extends State<OrderBestSeller> {
-  FoodMenu foodMenu;
+  int _counter = 0;
+  int jumlahDiCart = 0;
+
+  void tambahCart(){
+    setState(() {
+     jumlahDiCart++; 
+    });
+    print(jumlahDiCart);
+  }
+  void kurangCart(){
+    setState(() {
+     jumlahDiCart--; 
+    });
+    print(jumlahDiCart);
+  }
+
+  void _incrementCounterPlus() {
+    setState(() {
+      _counter++;
+    });
+  }
+
+  void _incrementCounterMinus() {
+    setState(() {
+      _counter--;
+    });
+  }
+
+  StoreMenuList storeMenu;
   bool isLoading = false;
 
   init() async {
     setState(() {
       isLoading = true;
     });
-    FoodMenu _foodMenuTemp;
-    _foodMenuTemp = await getFoodMenu();
+    StoreMenuList _storeMenuTemp;
+    _storeMenuTemp = await getStoreMenu();
     setState(() {
-      foodMenu = _foodMenuTemp;
+      storeMenu = _storeMenuTemp;
       isLoading = false;
     });
   }
@@ -33,6 +68,7 @@ class _OrderBestSellerState extends State<OrderBestSeller> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      margin: EdgeInsets.only(bottom: 80.0),
       child: Column(
         children: <Widget>[
           Container(
@@ -48,7 +84,7 @@ class _OrderBestSellerState extends State<OrderBestSeller> {
             margin: EdgeInsets.only(left: 15.0),
             child: Column(
               children: <Widget>[
-                (foodMenu == null || isLoading)
+                (storeMenu == null || isLoading)
                     ? Container(
                         child: CircularProgressIndicator(),
                       )
@@ -61,7 +97,20 @@ class _OrderBestSellerState extends State<OrderBestSeller> {
             alignment: Alignment.centerLeft,
             child: Text(
               "Coffee",
-              style: h4,
+              style: h3,
+            ),
+          ),
+          Container(
+            // padding: EdgeInsets.only(top: 10.0),
+            margin: EdgeInsets.only(left: 15.0),
+            child: Column(
+              children: <Widget>[
+                (storeMenu == null || isLoading)
+                    ? Container(
+                        child: CircularProgressIndicator(),
+                      )
+                    : foodCardCategoryContainer(),
+              ],
             ),
           ),
         ],
@@ -69,62 +118,17 @@ class _OrderBestSellerState extends State<OrderBestSeller> {
     );
   }
 
-  renderFoodCategoryCard(Category foodCategory) {
-    return FlatButton(
-        onPressed: () {},
-        padding: EdgeInsets.only(top: 15.0, bottom: 15.0),
-        child: Row(
-          children: <Widget>[
-            Container(
-              decoration: BoxDecoration(
-                  image: DecorationImage(
-                      image: NetworkImage(foodCategory.image),
-                      fit: BoxFit.cover),
-                  borderRadius: BorderRadius.all(Radius.circular(10))),
-              height: 75,
-              width: 75,
-            ),
-            Container(
-              padding: EdgeInsets.only(left: 20.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Container(
-                      // height: 100,
-                      // width: 100,
-                      // padding: EdgeInsets.only(left: 10.0),
-                      alignment: Alignment.topLeft,
-                      child: Text(foodCategory.title,
-                          style: TextStyle(color: Colors.black))),
-                  Container(
-                    // padding: EdgeInsets.only(left: 10.0),
-                      // height: 100,
-                      // width: 100,
-                      // padding: EdgeInsets.only(left: 5.0, right: 5.0),
-                      // alignment: Alignment.bottomCenter,
-                      child: Text(
-                    foodCategory.numbers.toString(),
-                    style: TextStyle(color: Colors.black),
-                  ))
-                ],
-              ),
-            ),
-          ],
-        ));
-  }
-
   foodCardCategoryContainer() {
     return Container(
-      // height: 100,
-      // decoration: BoxDecoration(
-      //   borderRadius: BorderRadius.all(Radius.circular(10.0))
-      // ),
       child: ListView.builder(
-          // scrollDirection: Axis.horizontal,
           shrinkWrap: true,
-          itemCount: foodMenu.cat.length,
+          physics:  NeverScrollableScrollPhysics(),
+          itemCount: storeMenu.storeItems.length,
           itemBuilder: (context, i) {
-            return renderFoodCategoryCard(foodMenu.cat[i]);
+            // return FoodMenuCard(foodCategory: storeMenu.storemenu[i],removeFromCart:()=> kurangCart(),addToCart:()=> tambahCart(),);
+            return FoodMenuCard(foodCategory: storeMenu.storeItems[i],removeFromCart:()=> widget.minShoppingBag(),addToCart:()=> widget.addShoppingBag()());
+
+            // return renderFoodCategoryCard(foodMenu.cat[i]);
           }),
     );
   }

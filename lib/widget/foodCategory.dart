@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:senja/constants/theme.dart';
-import 'package:senja/models/foodModel.dart';
+import 'package:senja/models/model.dart';
 import 'package:senja/controllers/foodContoller.dart';
 
 class FoodCardCategory extends StatefulWidget {
@@ -9,17 +9,17 @@ class FoodCardCategory extends StatefulWidget {
 }
 
 class _FoodCardCategoryState extends State<FoodCardCategory> {
-  FoodMenu foodMenu;
+  MainMenu mainMenu;
   bool isLoading = false;
 
   init() async {
     setState(() {
       isLoading = true;
     });
-    FoodMenu _foodMenuTemp;
-    _foodMenuTemp = await getFoodMenu();
+    MainMenu _mainMenuTemp;
+    _mainMenuTemp = await getMainMenu();
     setState(() {
-      foodMenu = _foodMenuTemp;
+      mainMenu = _mainMenuTemp;
       isLoading = false;
     });
   }
@@ -48,7 +48,7 @@ class _FoodCardCategoryState extends State<FoodCardCategory> {
           margin: EdgeInsets.only(left: 15.0),
           child: Column(
             children: <Widget>[
-              (foodMenu == null || isLoading)
+              (mainMenu == null || isLoading)
                   ? Container(
                       child: CircularProgressIndicator(),
                     )
@@ -112,9 +112,9 @@ class _FoodCardCategoryState extends State<FoodCardCategory> {
       child: ListView.builder(
           scrollDirection: Axis.horizontal,
           shrinkWrap: true,
-          itemCount: foodMenu.cat.length,
+          itemCount: mainMenu.cat.length,
           itemBuilder: (context, i) {
-            return renderFoodCategoryCard(foodMenu.cat[i]);
+            return renderFoodCategoryCard(mainMenu.cat[i]);
           }),
     );
   }

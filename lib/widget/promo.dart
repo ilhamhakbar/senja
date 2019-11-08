@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:senja/constants/theme.dart';
-import 'package:senja/models/foodModel.dart';
+import 'package:senja/models/model.dart';
 import 'package:senja/controllers/foodContoller.dart';
 
 
@@ -11,17 +11,17 @@ class FoodPromo extends StatefulWidget{
 }
 
 class _FoodPromoState extends State<FoodPromo>{
-  FoodMenu foodMenu;
+  MainMenu mainMenu;
   bool isLoading = false;
 
   init() async {
     setState(() {
       isLoading = true;
     });
-    FoodMenu _foodMenuTemp;
-    _foodMenuTemp = await getFoodMenu();
+    MainMenu _mainMenuTemp;
+    _mainMenuTemp = await getMainMenu();
     setState(() {
-      foodMenu = _foodMenuTemp;
+      mainMenu = _mainMenuTemp;
       isLoading = false;
     });
   }
@@ -50,7 +50,7 @@ class _FoodPromoState extends State<FoodPromo>{
             padding: EdgeInsets.only(left: 20.0),
             child: Column(
               children: <Widget>[
-                (foodMenu == null || isLoading)?Container(
+                (mainMenu == null || isLoading)?Container(
               child: CircularProgressIndicator(),
             ):foodPromoContainer(),
               ],
@@ -84,9 +84,9 @@ class _FoodPromoState extends State<FoodPromo>{
       child: ListView.builder(
           scrollDirection: Axis.horizontal,
           shrinkWrap: true,
-          itemCount: foodMenu.promo.length,
+          itemCount: mainMenu.promo.length,
           itemBuilder: (context, i) {
-            return renderFoodPromo(foodMenu.promo[i]);
+            return renderFoodPromo(mainMenu.promo[i]);
           }),
     );
   }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:senja/constants/theme.dart';
-import 'package:senja/models/foodModel.dart';
+import 'package:senja/models/model.dart';
 import 'package:senja/controllers/foodContoller.dart';
 
 class FoodCardPicks extends StatefulWidget {
@@ -9,17 +9,17 @@ class FoodCardPicks extends StatefulWidget {
 }
 
 class _FoodCardPicksState extends State<FoodCardPicks> {
-  FoodMenu foodMenu;
+  MainMenu mainMenu;
   bool isLoading = false;
 
   init() async {
     setState(() {
       isLoading = true;
     });
-    FoodMenu _foodMenuTemp;
-    _foodMenuTemp = await getFoodMenu();
+    MainMenu _mainMenuTemp;
+    _mainMenuTemp = await getMainMenu();
     setState(() {
-      foodMenu = _foodMenuTemp;
+      mainMenu = _mainMenuTemp;
       isLoading = false;
     });
   }
@@ -48,7 +48,7 @@ class _FoodCardPicksState extends State<FoodCardPicks> {
           padding: EdgeInsets.only(left: 20.0),
           child: Column(
             children: <Widget>[
-              (foodMenu == null || isLoading)
+              (mainMenu == null || isLoading)
                   ? Container(
                       child: CircularProgressIndicator(),
                     )
@@ -111,9 +111,9 @@ class _FoodCardPicksState extends State<FoodCardPicks> {
       child: ListView.builder(
           scrollDirection: Axis.horizontal,
           shrinkWrap: true,
-          itemCount: foodMenu.today.length,
+          itemCount: mainMenu.today.length,
           itemBuilder: (context, i) {
-            return renderFoodPicksCard(foodMenu.today[i]);
+            return renderFoodPicksCard(mainMenu.today[i]);
           }),
     );
   }

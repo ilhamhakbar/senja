@@ -1,15 +1,15 @@
-class FoodMenu {
+class MainMenu {
   String greetings;
   List<Category> cat;
   List<Category> today;
   List<Category> promo;
 
 
-  FoodMenu({
+  MainMenu({
     this.greetings, this.cat ,this.today, this.promo});
 
-  factory FoodMenu.fromJson(Map<String, dynamic> json){
-    return FoodMenu(
+  factory MainMenu.fromJson(Map<String, dynamic> json){
+    return MainMenu(
       greetings: json['greetings'],
       cat: (json['categories'] as List).map((i) => Category.fromJson(i)).toList(),
       today : (json['todays_picks'] as List).map((i) => Category.fromJson(i)).toList(),

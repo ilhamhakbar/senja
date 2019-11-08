@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:senja/pages/splashscreen.dart';
 import 'package:senja/pages/homepageMain.dart';
+import 'package:scoped_model/scoped_model.dart';
+import 'package:senja/scoped-model/products_model.dart';
+
 
 
 
@@ -17,7 +20,9 @@ class SenjaAppState extends State<SenjaApp>{
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return ScopedModel(
+      model: ProductsModel(),
+      child: MaterialApp(
       title: 'Coba',
       theme: ThemeData(
         fontFamily: "SFRegular",
@@ -42,7 +47,7 @@ class SenjaAppState extends State<SenjaApp>{
         'Home' : (BuildContext context)=> Home(),
       },
       home: SplashScreen(),
-    );
+    ),);
   }
 }
   // This widget is the root of your application.

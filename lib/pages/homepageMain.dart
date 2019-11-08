@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:senja/pages/Order/order.dart';
+import 'package:senja/pages/ShoppingCart/cartPage.dart';
 import 'package:senja/pages/homepage.dart';
-import 'package:senja/constants/theme.dart';
 import 'package:senja/pages/order/orderPage.dart';
 
 
@@ -15,20 +16,28 @@ class _HomeState extends State<Home>{
   int _selectPage = 0;
   final _pageOptions = [
     HomePage(),
-    Text('Item 2'),
-    Home(),
+    ShoppingCart(),
+    null,
     Text('Item 4'),
     Text('Item 5'),
   ];
   @override
   Widget build(BuildContext context) {
   return Scaffold(
-        floatingActionButton: FloatingActionButton(
+        floatingActionButton: Container(
+          width: 70,
+          height: 70,
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            color: Color(0xFFbe9b7b)
+          ),
+          child:  IconButton(
           onPressed: (){
-            Navigator.push(context, MaterialPageRoute(builder: (context) => OrderPage()));
+            Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => OrderHomePage()));
           },
-          child: Icon(Icons.add),
-          backgroundColor: Color(0xFFbe9b7b),
+          icon: Icon(Icons.add,color: Colors.white,),
+          disabledColor: Colors.green,
+        ),
         ),
         body: _pageOptions[_selectPage],
         bottomNavigationBar: BottomNavigationBar(
@@ -37,18 +46,21 @@ class _HomeState extends State<Home>{
             selectedItemColor: Color(0xFFbe9b7b),
             unselectedItemColor: Colors.grey,
             onTap: (int index) {
+              if(index != 2){
+                
               setState(() {
                 _selectPage = index;
               });
+              }else{}
             },
             items: [
               BottomNavigationBarItem(
                   // activeIcon: Icon(Icons.headset),
                   icon: Icon(Icons.home), title: Text('Home')),
               BottomNavigationBarItem(
-                  icon: Icon(Icons.work), title: Text('Order')),
+                  icon: Icon(Icons.work), title: Text('History')),
               BottomNavigationBarItem(
-                  icon: Icon(null), title: Text('Chat')),
+                  icon: Icon(null), title: Text('Order')),
               BottomNavigationBarItem(
                   icon: Icon(Icons.message), title: Text('Inbox')),
               BottomNavigationBarItem(
@@ -57,4 +69,11 @@ class _HomeState extends State<Home>{
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       );
   }
+
+  snackbar()=>SnackBar(
+    content: Container(
+      height: 300,
+      child: Text('wew dude'),
+    ),
+  );
 }
