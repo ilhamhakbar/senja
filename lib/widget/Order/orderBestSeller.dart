@@ -105,7 +105,7 @@ class _OrderBestSellerState extends State<OrderBestSeller> {
             margin: EdgeInsets.only(left: 15.0),
             child: Column(
               children: <Widget>[
-                (storeMenu == null || isLoading)
+                (foodMenu == null || isLoading)
                     ? Container(
                         child: CircularProgressIndicator(),
                       )
@@ -122,8 +122,10 @@ class _OrderBestSellerState extends State<OrderBestSeller> {
     return Container(
       child: ListView.builder(
           shrinkWrap: true,
-          physics:  NeverScrollableScrollPhysics(),
-          itemCount: storeMenu.storeItems.length,
+
+
+          physics: const NeverScrollableScrollPhysics(),
+          itemCount: foodMenu.cat.length,
           itemBuilder: (context, i) {
             // return FoodMenuCard(foodCategory: storeMenu.storemenu[i],removeFromCart:()=> kurangCart(),addToCart:()=> tambahCart(),);
             return FoodMenuCard(foodCategory: storeMenu.storeItems[i],removeFromCart:()=> widget.minShoppingBag(),addToCart:()=> widget.addShoppingBag()());
