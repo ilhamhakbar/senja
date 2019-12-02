@@ -22,18 +22,26 @@ class _CafePageState extends State<CafePage> {
   _onCameraMove(CameraPosition position) {
     _lastMapPosition = position.target;
   }
+  
 
+  @override
   void initState() {
-    setState(() {
-      // timer = Timer.periodic(Duration(seconds: 2), (Timer t) => _nextImage());
-      _markers.clear();
+    // TODO: implement initState
+    super.initState();
+    initMap();
+    Timer.periodic(Duration(seconds: 3), (Timer t){
+      _nextImage();
+    });
+  }
+
+  void initMap() {
+     _markers.clear();
       final marker = Marker(
         markerId: MarkerId("curr_loc"),
         position: LatLng(7.0557345, 110.4323373),
         infoWindow: InfoWindow(title: 'Your Location'),
       );
       _markers["Current Location"] = marker;
-    });
   }
 
   List<String> photos =[

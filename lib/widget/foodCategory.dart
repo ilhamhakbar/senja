@@ -2,32 +2,38 @@ import 'package:flutter/material.dart';
 import 'package:senja/constants/theme.dart';
 import 'package:senja/models/model.dart';
 import 'package:senja/controllers/foodContoller.dart';
+import 'package:senja/provider/menu_provider.dart';
 
 class FoodCardCategory extends StatefulWidget {
+  final MenuProvider mp;
+  FoodCardCategory({
+    this.mp
+  });
+  
   @override
   _FoodCardCategoryState createState() => _FoodCardCategoryState();
 }
 
 class _FoodCardCategoryState extends State<FoodCardCategory> {
-  MainMenu mainMenu;
-  bool isLoading = false;
+  // MainMenu mainMenu;
+  // bool isLoading = false;
 
-  init() async {
-    setState(() {
-      isLoading = true;
-    });
-    MainMenu _mainMenuTemp;
-    _mainMenuTemp = await getMainMenu();
-    setState(() {
-      mainMenu = _mainMenuTemp;
-      isLoading = false;
-    });
-  }
+  // init() async {
+  //   setState(() {
+  //     isLoading = true;
+  //   });
+  //   MainMenu _mainMenuTemp;
+  //   _mainMenuTemp = await getMainMenu();
+  //   setState(() {
+  //     mainMenu = _mainMenuTemp;
+  //     isLoading = false;
+  //   });
+  // }
 
   @override
   void initState() {
     super.initState();
-    init();
+    // init();
   }
 
   @override
@@ -48,11 +54,12 @@ class _FoodCardCategoryState extends State<FoodCardCategory> {
           margin: EdgeInsets.only(left: 15.0),
           child: Column(
             children: <Widget>[
-              (mainMenu == null || isLoading)
-                  ? Container(
-                      child: CircularProgressIndicator(),
-                    )
-                  : foodCardCategoryContainer(),
+              // (mainMenu == null || isLoading)
+              //     ? Container(
+              //         child: CircularProgressIndicator(),
+              //       )
+              //     : 
+                  foodCardCategoryContainer(),
             ],
           ),
         )
@@ -112,9 +119,10 @@ class _FoodCardCategoryState extends State<FoodCardCategory> {
       child: ListView.builder(
           scrollDirection: Axis.horizontal,
           shrinkWrap: true,
-          itemCount: mainMenu.cat.length,
+          itemCount: (widget.mp.mainMenu == null )? 3: widget.mp.mainMenu.cat.length,
           itemBuilder: (context, i) {
-            return renderFoodCategoryCard(mainMenu.cat[i]);
+            return (widget.mp.mainMenu == null)? loadingBox( height: 100,
+        width: 100,): renderFoodCategoryCard(widget.mp.mainMenu.cat[i]);
           }),
     );
   }

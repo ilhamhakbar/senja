@@ -4,6 +4,8 @@ import 'package:senja/widget/foodCategory.dart';
 import 'package:senja/widget/foodPicks.dart';
 import 'package:senja/widget/promo.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:provider/provider.dart';
+import 'package:senja/provider/menu_provider.dart';
 
 
 class HomePage extends StatefulWidget {
@@ -13,9 +15,20 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   String name;
+  MenuProvider mp;
+
+  bool isLoading = false;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getUser();
+  }
   
   @override
   Widget build(BuildContext context) {
+    mp = Provider.of<MenuProvider>(context);
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -23,11 +36,6 @@ class _HomePageState extends State<HomePage> {
             Container(
               height: 250,
               width: sizeHorizontal * 100,
-              // decoration: BoxDecoration(
-              //     color: Colors.blue,
-              //     image: DecorationImage(
-              //         image: AssetImage('assets/images/bgimages.jpeg'),
-              //         fit: BoxFit.fill)),
               child: Stack(
                 children: <Widget>[
                   Image.asset("assets/images/bgimages.jpeg",
@@ -49,12 +57,12 @@ class _HomePageState extends State<HomePage> {
                   //  padding: EdgeInsets.only(left: 25.0, right: 5.0, bottom: 60.0), 
                    width: 120,
                    child: Image.asset("assets/images/senja_1.png"),
-                                     ),
+                  ),
                   ),
                   Container(
                     padding: EdgeInsets.only(left: 25.0, right: 5.0, bottom: 60.0),
                      alignment: Alignment.bottomLeft,
-                    child: Text("Morning Benaya", style: t2,),
+                    child: (isLoading)?loadingBox(height: 200, width: 100):Text("Morning, "+name, style: t2,),
                   ),
                   Container(
                     padding: EdgeInsets.only(left: 25.0, right: 5.0, bottom: 30.0),
@@ -68,7 +76,7 @@ class _HomePageState extends State<HomePage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  FoodCardCategory(),
+                  FoodCardCategory(mp: mp),
                 ],
               ),
             ),
@@ -94,8 +102,14 @@ class _HomePageState extends State<HomePage> {
     );
   }
   getUser() async{
+    setState(() {
+      isLoading =true;
+    });
   SharedPreferences prefs = await SharedPreferences.getInstance();
   name = prefs.getString("name");
+  setState(() {
+    isLoading = false;
+  });
 }
 }
 

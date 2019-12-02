@@ -10,6 +10,17 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+  String name;
+
+  bool isLoading = false;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getUser();
+  }
+
   Future<void> _logout() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     print('Trying to logout');
@@ -122,8 +133,8 @@ class _ProfilePageState extends State<ProfilePage> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  Text(
-                    'Benaya Nandhi',
+                  Text((name == null)?'Senja User':
+                    name,
                     style: h1,
                   )
                 ],
@@ -340,4 +351,14 @@ class _ProfilePageState extends State<ProfilePage> {
   //         );
   //       });
   // }
+  getUser() async{
+    setState(() {
+      isLoading =true;
+    });
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  name = prefs.getString("name");
+  setState(() {
+    isLoading = false;
+  });
+}
 }

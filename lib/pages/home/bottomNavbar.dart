@@ -4,6 +4,8 @@ import 'package:senja/pages/Order/order.dart';
 import 'package:senja/pages/ShoppingCart/cartPage.dart';
 import 'package:senja/pages/home/homePage.dart';
 import 'package:senja/pages/profile/profile.dart';
+import 'package:provider/provider.dart';
+import 'package:senja/provider/menu_provider.dart';
 
 
 class Home extends StatefulWidget{
@@ -40,7 +42,9 @@ class _HomeState extends State<Home>{
           disabledColor: Colors.green,
         ),
         ),
-        body: _pageOptions[_selectPage],
+        body: ChangeNotifierProvider(
+          child: _pageOptions[_selectPage], 
+          builder: (_) => MenuProvider() ,),
         bottomNavigationBar: BottomNavigationBar(
             type: BottomNavigationBarType.fixed,
             selectedItemColor: Colors.black,

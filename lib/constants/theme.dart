@@ -85,4 +85,17 @@ TextStyle c4(Color color) {
   return TextStyle(
       fontSize: sizeHorizontal * 6, fontFamily: "SFBold", color: color);
 }
+
+Container loadingBox({
+  double width,
+  double height
+}){
+  return Container(
+    width:width,
+    height: height,
+    decoration: BoxDecoration(
+      color: Colors.grey[200],
+    ),
+  );
+}
 //------------------------------------------

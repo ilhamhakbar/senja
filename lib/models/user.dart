@@ -28,7 +28,7 @@ class Data{
 
   factory Data.fromMap(Map<String, dynamic> json) => new Data(
      email: json["email"] == null ? null : json["email"],
-     name: json["username"] == null ? null : json["name"],
+     name: json["name"] == null ? null : json["name"],
      no_hp: json["no_hp"] == null ? null : json["no_hp"],
   );
 

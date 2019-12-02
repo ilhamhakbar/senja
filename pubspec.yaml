@@ -31,6 +31,7 @@ dependencies:
   geolocator:
   flutter_svg:
   carousel_pro:
+  provider:
 
 dev_dependencies:
   flutter_test:

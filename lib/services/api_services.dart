@@ -27,8 +27,9 @@ Future<User> requestLogin(
   final response = await http.post(url, body: body);
 
   if (json.decode(response.body)['status_code'] == 200){
-    // await saveUserModel(json.decode(response.body));
+    await saveUserModel(json.decode(response.body));
     prefs.setString('spToken', json.decode(response.body)['token']);
+    print(response.body);
     Navigator.of(context)
         .pushNamedAndRemoveUntil('Home', (Route<dynamic> route) => false);
     throw new Exception("Anda sukses login");
