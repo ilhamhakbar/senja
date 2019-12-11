@@ -1,14 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:senja/constants/theme.dart';
+import 'package:senja/models/transaksi.dart';
 import 'package:senja/scoped-model/products_model.dart';
 import 'package:senja/models/product.dart';
-import 'package:senja/card/cart_card.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class 
-Cart extends StatelessWidget {
-  const Cart({Key key, @required this.product,}): super(key: key);
-  final Product product;
+class Cart extends StatefulWidget {
+  Cart({Key key, @required this.product,}): super(key: key);
+  Product product;
+  @override
+  _CartState createState() => _CartState();
+}
+
+class _CartState extends State<Cart>{
+  @override
+  void initState(){
+    super.initState();
+  }
+  
   // final Product product;
   // Cart(this.product);
 

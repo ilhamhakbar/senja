@@ -7,6 +7,9 @@ const Color senjaBrown = Color(0xffbe9b7b);
 const Color successGreen = Color(0xFF8bc24a);
 const Color dangerRed = Color(0xFFff4421);
 const Color warningOrange = Color(0xffff9700);
+const Color kursiKosong = Color(0xff02c39a);
+const Color kursiTerisi = Color(0xffffffff);
+const Color kursiPenuh = Color(0xffcccccc);
 
 //SnackBar
 void showInSnackBar(BuildContext context, GlobalKey<ScaffoldState> _scaffoldKey,

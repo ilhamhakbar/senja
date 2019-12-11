@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:senja/constants/global.dart';
 import 'package:senja/constants/theme.dart';
 import 'package:senja/pages/splashscreen/splashscreen.dart';
@@ -10,6 +11,7 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+  GoogleSignIn _googleSignIn = GoogleSignIn(scopes:<String> ['email','https://www.googleapis.com/auth/contacts.readonly']);
   String name;
 
   bool isLoading = false;
@@ -25,6 +27,7 @@ class _ProfilePageState extends State<ProfilePage> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     print('Trying to logout');
     await prefs.clear();
+    _googleSignIn.disconnect();
     print(prefs.getString('spToken'));
     print('Berhasil Logout');
 

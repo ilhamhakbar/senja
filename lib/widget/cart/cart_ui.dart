@@ -1,10 +1,33 @@
 import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
+import 'package:senja/constants/global.dart';
 import 'package:senja/constants/theme.dart';
 import 'package:senja/scoped-model/products_model.dart';
+import 'package:senja/widget/BookingTempat/tempat_duduk_screen.dart';
 import 'package:senja/widget/cart/cart_list.dart';
+import 'package:senja/widget/payment/Gopay/waiting_gopay.dart';
 import 'package:senja/widget/payment/payment_point.dart';
-class CartPage extends StatelessWidget {
+import 'package:shared_preferences/shared_preferences.dart';
+
+class CartPage extends StatefulWidget {
+  String orderId;
+  CartPage({this.orderId});
+  @override
+  _CartPageState createState() => _CartPageState();
+}
+
+class _CartPageState extends State<CartPage>{
+   DateTime datetime = DateTime.now();
+    String name;
+    bool isLoading = false;
+    String order_id;
+    PaymentPoint paymentPoint =PaymentPoint();
+
+    @override
+  void initState(){
+    super.initState();
+    getUser();
+  }
   //Init the client ID you URL base
   @override
   Widget build(BuildContext context) {
@@ -51,7 +74,18 @@ class CartPage extends StatelessWidget {
                             Text(
                               "Pesan Tempat Duduk",
                               style: t3,
-                            )
+                            ),
+                            GestureDetector(
+                          onTap: (){
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => TempatDudukScreen()));
+                          },
+                          child: Container(
+                            // height: 20,
+                            // width: 50,
+                            color: senjaBrown,
+                            child: Text('Pilih Tempat Duduk'),
+                          ),
+                        )
                           ],
                         ),
                       ),
@@ -88,11 +122,23 @@ class CartPage extends StatelessWidget {
                           ],
                         ),
                       ),
-                      PaymentPoint()
+                      paymentPoint,
+                      orderPesanContainer(model)
+                      // PaymentPoint()
                       ],
                   ),
-                ),
-                Container(
+              ),
+                
+              ],
+            ),
+          ),
+        ),
+      );
+    });
+  }
+
+  orderPesanContainer(ProductsModel model){
+    return Container(
                   padding: EdgeInsets.fromLTRB(20, 30, 20, 30),
                   child: Column(
                     children: <Widget>[
@@ -111,6 +157,12 @@ class CartPage extends StatelessWidget {
                       ),
                       InkWell(
                         onTap: (){
+                          // print('payment sekarang : '+paymentPoint.paymentMethod);
+                          model.clearItemMap();
+                          model.addToMap();
+
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => WaitingGopay()));
+                        
                         },
                         child: Container(
                           alignment: Alignment.center,
@@ -132,12 +184,18 @@ class CartPage extends StatelessWidget {
                       ),
                     ],
                   ),
-                )
-              ],
-            ),
-          ),
-        ),
-      );
-    });
+                );
   }
+
+  getUser() async{
+    setState(() {
+      isLoading =true;
+    });
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  name = prefs.getString("name");
+  order_id = name + '_senja_' + datetime.toString();
+  setState(() {
+    isLoading = false;
+  });
+}
 }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:senja/constants/theme.dart';
 import 'package:senja/models/model.dart';
 import 'package:senja/controllers/foodContoller.dart';
+import 'package:senja/pages/order/product_details.dart';
 import 'package:senja/provider/menu_provider.dart';
 
 class FoodCardCategory extends StatefulWidget {
@@ -50,17 +51,20 @@ class _FoodCardCategoryState extends State<FoodCardCategory> {
             style: h4,
           ),
         ),
-        Container(
-          margin: EdgeInsets.only(left: 15.0),
-          child: Column(
-            children: <Widget>[
-              // (mainMenu == null || isLoading)
-              //     ? Container(
-              //         child: CircularProgressIndicator(),
-              //       )
-              //     : 
-                  foodCardCategoryContainer(),
-            ],
+        GestureDetector(
+          onTap: () => Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => ProductDetails())),
+          child: Container(
+            margin: EdgeInsets.only(left: 15.0),
+            child: Column(
+              children: <Widget>[
+                // (mainMenu == null || isLoading)
+                //     ? Container(
+                //         child: CircularProgressIndicator(),
+                //       )
+                //     : 
+                    foodCardCategoryContainer(),
+              ],
+            ),
           ),
         )
       ],
@@ -68,8 +72,7 @@ class _FoodCardCategoryState extends State<FoodCardCategory> {
   }
 
   renderFoodCategoryCard(Category foodCategory) {
-    return FlatButton(
-      onPressed: () {},
+    return Container(
       padding: EdgeInsets.all(5.0),
       child: Container(
         decoration: BoxDecoration(
@@ -119,7 +122,7 @@ class _FoodCardCategoryState extends State<FoodCardCategory> {
       child: ListView.builder(
           scrollDirection: Axis.horizontal,
           shrinkWrap: true,
-          itemCount: (widget.mp.mainMenu == null )? 3: widget.mp.mainMenu.cat.length,
+          itemCount: (widget.mp.mainMenu == null )? 5: widget.mp.mainMenu.cat.length,
           itemBuilder: (context, i) {
             return (widget.mp.mainMenu == null)? loadingBox( height: 100,
         width: 100,): renderFoodCategoryCard(widget.mp.mainMenu.cat[i]);

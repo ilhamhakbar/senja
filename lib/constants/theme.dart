@@ -38,38 +38,38 @@ class SizeConfig {
 
 //------------------------------------------TEXTSTYLE
 TextStyle h1 =
-    TextStyle(fontSize: sizeHorizontal * 8.5, fontFamily: "MignonBold");
+    TextStyle(fontSize: sizeHorizontal * 8.5, fontFamily: "SFBold");
 
 TextStyle h2 =
-    TextStyle(fontSize: sizeHorizontal * 7, fontFamily: "MignonBold");
+    TextStyle(fontSize: sizeHorizontal * 7, fontFamily: "SFBold");
 
 TextStyle h3 =
-    TextStyle(fontSize: sizeHorizontal * 6, fontFamily: "MignonBold");
+    TextStyle(fontSize: sizeHorizontal * 6, fontFamily: "SFBold");
 
 TextStyle h4 =
-    TextStyle(fontSize: sizeHorizontal * 5, fontFamily: "MignonBold");
+    TextStyle(fontSize: sizeHorizontal * 5, fontFamily: "SFBold");
 
 TextStyle h5 =
-    TextStyle(fontSize: sizeHorizontal * 4, fontFamily: "MignonBold");
+    TextStyle(fontSize: sizeHorizontal * 4, fontFamily: "SFBold");
 
 TextStyle t1 = TextStyle(
   fontSize: sizeHorizontal * 8.5,
 );
 
 TextStyle t2 =
-    TextStyle(fontSize: sizeHorizontal * 6, fontFamily: "MignonRegular");
+    TextStyle(fontSize: sizeHorizontal * 6, fontFamily: "SFRegular");
 
 TextStyle t3 =
-    TextStyle(fontSize: sizeHorizontal * 5.5, fontFamily: "MignonRegular");
+    TextStyle(fontSize: sizeHorizontal * 5.5, fontFamily: "SFRegular");
 
 TextStyle t3Url = TextStyle(fontSize: sizeHorizontal * 3, color: Colors.blue);
 
 TextStyle t4 =
-    TextStyle(fontSize: sizeHorizontal * 5, fontFamily: "MignonRegular");
+    TextStyle(fontSize: sizeHorizontal * 5, fontFamily: "SFRegular");
 
 TextStyle t5 =
-    TextStyle(fontSize: sizeHorizontal * 4, fontFamily: "MignonRegular");
-TextStyle t5grey = TextStyle(fontSize: sizeHorizontal*4, fontFamily: "MignonRegular", color: Colors.grey);
+    TextStyle(fontSize: sizeHorizontal * 4, fontFamily: "SFRegular");
+TextStyle t5grey = TextStyle(fontSize: sizeHorizontal*4, fontFamily: "SFRegular", color: Colors.grey);
 TextStyle ctaOrange = TextStyle(
     fontSize: sizeHorizontal * 4,
 //    fontWeight: FontWeight.bold,
@@ -81,10 +81,13 @@ TextStyle ctaWhite = TextStyle(
 //    fontWeight: FontWeight.bold
 );
 
-TextStyle c4(Color color) {
+TextStyle c4({Color color}) {
   return TextStyle(
-      fontSize: sizeHorizontal * 6, fontFamily: "SFBold", color: color);
+      fontSize: sizeHorizontal * 6, fontFamily: "SFBold", color: (color != null)? color:Colors.black);
 }
+
+TextStyle t4Black =
+  TextStyle(fontSize: sizeHorizontal*5, fontFamily: "SFRegular", color: Colors.black);
 
 Container loadingBox({
   double width,

@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:senja/auth/login_page.dart';
-import 'package:senja/constants/theme.dart';
 import 'package:senja/pages/home/bottomNavbar.dart';
-import 'signup_page.dart';
 
 class AuthPage extends StatefulWidget {
+
   @override
   State<StatefulWidget> createState() {
     return _AuthpageState();
@@ -41,7 +40,7 @@ class _AuthpageState extends State<AuthPage> {
                 color: Colors.white,
               ),
               padding: EdgeInsets.all(25),
-              child:                       _isLogin ? LoginPage(scaffoldKey: scaffoldKey,) : Home(),
+              child: _isLogin ? LoginPage(scaffoldKey: scaffoldKey,) : Home(),
 
               // Center(
               //     child: Column(

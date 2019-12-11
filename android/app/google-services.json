@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "1057193122089",
+    "firebase_url": "https://senjaapp-1574607546219.firebaseio.com",
+    "project_id": "senjaapp-1574607546219",
+    "storage_bucket": "senjaapp-1574607546219.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1057193122089:android:a8fd7f55bc0982ae49ff38",
+        "android_client_info": {
+          "package_name": "com.vantura.senja"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1057193122089-pb1us9b8c2hlb9l3n0djjun4d5pvths3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD0SQNKhfSRsF2BXBPSjAwV0Ldv64vs9WM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1057193122089-pb1us9b8c2hlb9l3n0djjun4d5pvths3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

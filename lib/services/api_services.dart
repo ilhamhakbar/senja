@@ -7,7 +7,9 @@ import 'package:http/http.dart' as http;
 import 'package:senja/constants/url.dart' as uri;
 import 'package:senja/controllers/userController.dart';
 import 'package:senja/models/user.dart';
+import 'package:senja/models/transaksi.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 //Login
 Future<User> requestLogin(
@@ -29,7 +31,7 @@ Future<User> requestLogin(
   if (json.decode(response.body)['status_code'] == 200){
     await saveUserModel(json.decode(response.body));
     prefs.setString('spToken', json.decode(response.body)['token']);
-    print(response.body);
+    // print(response.body);
     Navigator.of(context)
         .pushNamedAndRemoveUntil('Home', (Route<dynamic> route) => false);
     throw new Exception("Anda sukses login");
@@ -45,5 +47,48 @@ Future<User> requestLogin(
   // }
   else {
     throw new Exception(json.decode(response.body)['message']);
+  }
+}
+
+//Bayar Gopay
+Future<void> buatTransaksi({
+  BuildContext context,
+  String paymentType,
+  // List<Item> items,
+  List<Map<String, dynamic>> lmp,
+  Detail transactionDetails,
+
+  Gopay gopay,  
+}) async {
+  final gopayUrl = uri.gopay;
+  DateTime dateTime = DateTime.now();
+
+  
+
+  Map<String, String> header ={
+      'Accept' : 'application/json',
+      'Authorization' : 'Basic U0ItTWlkLXNlcnZlci1XRTFrTFp6a3JVRDJOUEt6RXdRTENITV8=',
+      'Content-Type' : 'application/json'
+  };
+  
+  Map<String, dynamic> body ={
+    'payment_type' : 'gopay',
+    'transaction_details' : {
+      'order_id' : 'Ilham123_senja_'+dateTime.toString(),
+      'gross_amount' : transactionDetails.grossAmount
+    },
+    'item_details': lmp,
+  };
+  // print(body);
+  // print('ini jsonnya : ');
+  print(json.encode(body));
+
+  final response = await http.post(gopayUrl, headers: header, body: json.encode(body));
+
+  if (json.decode(response.body)['status_code'] == '201'){
+    print('sukses');
+    launch(json.decode(response.body)['actions'][1]['url']);
+  }else{
+    print(response.body);
   }
 }

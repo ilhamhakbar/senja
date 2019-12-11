@@ -2,9 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:senja/constants/global.dart';
 import 'package:senja/constants/theme.dart';
 
 class CafePage extends StatefulWidget {
@@ -19,32 +17,39 @@ class _CafePageState extends State<CafePage> {
   MapType _currentMapType = MapType.normal;
   int photoIndex = 0;
   Timer timer;
+  
   _onCameraMove(CameraPosition position) {
     _lastMapPosition = position.target;
   }
-  
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     initMap();
-    Timer.periodic(Duration(seconds: 3), (Timer t){
+    timer = Timer.periodic(Duration(seconds: 3), (Timer t) {
       _nextImage();
     });
   }
 
-  void initMap() {
-     _markers.clear();
-      final marker = Marker(
-        markerId: MarkerId("curr_loc"),
-        position: LatLng(7.0557345, 110.4323373),
-        infoWindow: InfoWindow(title: 'Your Location'),
-      );
-      _markers["Current Location"] = marker;
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    timer.cancel();
+    super.dispose();
   }
 
-  List<String> photos =[
+  void initMap() {
+    _markers.clear();
+    final marker = Marker(
+      markerId: MarkerId("curr_loc"),
+      position: LatLng(7.0557345, 110.4323373),
+      infoWindow: InfoWindow(title: 'Your Location'),
+    );
+    _markers["Current Location"] = marker;
+  }
+
+  List<String> photos = [
     'https://picsum.photos/id/866/600/300',
     'https://picsum.photos/id/867/600/300',
     'https://picsum.photos/id/868/600/300',
@@ -58,12 +63,13 @@ class _CafePageState extends State<CafePage> {
   //   });
   // }
 
-  void _nextImage(){
-    setState(() {
-      photoIndex = photoIndex < photos.length -1 ? photoIndex + 1 : 0;
-    });
+  void _nextImage() {
+    if (mounted) {
+      setState(() {
+        photoIndex = photoIndex < photos.length - 1 ? photoIndex + 1 : 0;
+      });
+    }
   }
-  
 
   @override
   Widget build(BuildContext context) {
@@ -211,24 +217,25 @@ class _CafePageState extends State<CafePage> {
                   ),
                 ),
                 SizedBox(
-                  height: sizeHorizontal*3,
+                  height: sizeHorizontal * 3,
                 ),
-                GestureDetector(
-                  onTap: ()=> _nextImage(),
-                                  child: Container(
+                Container(
+                  child: Container(
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(15.0),
-                      image: DecorationImage(
-                        image: NetworkImage(photos[photoIndex]), fit: BoxFit.cover
-                      )
-                    ),
-                    height: sizeHorizontal*40,
-                    width: sizeHorizontal*90,
+                        borderRadius: BorderRadius.circular(15.0),
+                        image: DecorationImage(
+                            image: NetworkImage(photos[photoIndex]),
+                            fit: BoxFit.cover)),
+                    height: sizeHorizontal * 40,
+                    width: sizeHorizontal * 90,
                   ),
                 ),
                 Container(
-                  padding: EdgeInsets.only(top:sizeHorizontal*3),
-                  child: SelectedPhoto(numberOfDots: photos.length, photoIndex: photoIndex,),
+                  padding: EdgeInsets.only(top: sizeHorizontal * 3),
+                  child: SelectedPhoto(
+                    numberOfDots: photos.length,
+                    photoIndex: photoIndex,
+                  ),
                 )
               ],
             ),
@@ -240,13 +247,12 @@ class _CafePageState extends State<CafePage> {
 }
 
 class SelectedPhoto extends StatelessWidget {
-  
   final int numberOfDots;
   final int photoIndex;
 
   SelectedPhoto({this.numberOfDots, this.photoIndex});
 
-  Widget _inactivePhoto(){
+  Widget _inactivePhoto() {
     return new Container(
       child: new Padding(
         padding: EdgeInsets.only(left: 3.0, right: 3.0),
@@ -254,15 +260,13 @@ class SelectedPhoto extends StatelessWidget {
           height: 15.0,
           width: 15.0,
           decoration: BoxDecoration(
-            color: Colors.grey,
-            borderRadius: BorderRadius.circular(8.0)
-          ),
+              color: Colors.grey, borderRadius: BorderRadius.circular(8.0)),
         ),
       ),
     );
   }
 
-  Widget _activePhoto(){
+  Widget _activePhoto() {
     return Container(
       child: Padding(
         padding: EdgeInsets.only(left: 5.0, right: 5.0),
@@ -272,20 +276,17 @@ class SelectedPhoto extends StatelessWidget {
           decoration: BoxDecoration(
             color: Color(0xffbe9b7b),
             borderRadius: BorderRadius.circular(8.0),
-              ),
+          ),
         ),
       ),
-
     );
   }
 
-  List<Widget> _buildDots(){
+  List<Widget> _buildDots() {
     List<Widget> dots = [];
 
-    for (int i = 0; i<numberOfDots;++i){
-      dots.add(
-          i == photoIndex ? _activePhoto(): _inactivePhoto()
-      ); 
+    for (int i = 0; i < numberOfDots; ++i) {
+      dots.add(i == photoIndex ? _activePhoto() : _inactivePhoto());
     }
     return dots;
   }
@@ -293,11 +294,10 @@ class SelectedPhoto extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: _buildDots(),
-        ),
-      )
-    ;
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: _buildDots(),
+      ),
+    );
   }
 }

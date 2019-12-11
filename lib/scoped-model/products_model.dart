@@ -1,5 +1,6 @@
 import 'package:scoped_model/scoped_model.dart';
 import 'package:senja/models/product.dart';
+import 'package:senja/models/transaksi.dart';
 // import 'package:http/http.dart' as http;
 // import 'dart:convert';
 
@@ -7,16 +8,20 @@ class ProductsModel extends Model {
   List<Product> _products = [];
   List<Product> _cartList = [];
   List<Product> _cartTemp = [];
-  List<Product> _quantity = [];
+  // List<Product> _quantity = [];
+  List<Item> _items = [];
+  List<Map<String, dynamic>> _mapItems = [];
+  List<Map<String, dynamic>> get mapItems => _mapItems;
+
   final baseUrl = 'http://api.flutterapp.in/api/';
 
   ProductsModel() {
     _products.add(Product(
       1,
       'Americano Ice',
-      'Combination Of Double Shots Of Espresso With Cold Water Made A Rich Cup With Depth And Nuance',
+      ' ',
       22000,
-      'http://www.webzstudioz.com/cafearoma/wp-content/uploads/2018/07/Ice-Americano-Large.jpg',
+      'https://i0.wp.com/resepkoki.id/wp-content/uploads/2019/03/kopi.png?fit=883%2C589&ssl=1',
     ));
 
     _products.add(Product(
@@ -74,8 +79,12 @@ class ProductsModel extends Model {
     }
   }
 
-  double get getCartPrice {
-    double price = 0;
+  List<Map<String, dynamic>> get getItemDetails{
+    return List.from(_mapItems);
+  }
+
+  int get getCartPrice {
+    int price = 0;
     getCartList.forEach((Product pro) {
       price += pro.price;
     });
@@ -85,6 +94,7 @@ class ProductsModel extends Model {
   void addToCart(Product product) {
     product.quantity = product.quantity + 1;
     _cartList.add(product);
+    _items.add(Item(id: product.id,name: product.title, quantity: product.quantity, price: product.price));
     if (product.quantity == 1){
       _cartTemp.add(product);
     }
@@ -101,4 +111,16 @@ class ProductsModel extends Model {
     _cartList = [];
     _cartTemp = [];
   }
+
+  void addToMap(){
+   for(Item i in _items){
+     _mapItems.add(i.toMap());
+   }
+      print(_mapItems);
+
+   }
+
+   void clearItemMap(){
+     _mapItems.clear();
+   }
 }

@@ -2,34 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:senja/constants/theme.dart';
 import 'package:senja/models/model.dart';
 import 'package:senja/controllers/foodContoller.dart';
+import 'package:senja/provider/menu_provider.dart';
 
 
 class FoodPromo extends StatefulWidget{
+  final MenuProvider mp;
+  FoodPromo({this.mp});
   @override
   _FoodPromoState createState() => _FoodPromoState();
 
 }
 
 class _FoodPromoState extends State<FoodPromo>{
-  MainMenu mainMenu;
-  bool isLoading = false;
-
-  init() async {
-    setState(() {
-      isLoading = true;
-    });
-    MainMenu _mainMenuTemp;
-    _mainMenuTemp = await getMainMenu();
-    setState(() {
-      mainMenu = _mainMenuTemp;
-      isLoading = false;
-    });
-  }
 
   @override
   void initState() {
     super.initState();
-    init();
   }
 
   @override
@@ -50,9 +38,10 @@ class _FoodPromoState extends State<FoodPromo>{
             padding: EdgeInsets.only(left: 20.0),
             child: Column(
               children: <Widget>[
-                (mainMenu == null || isLoading)?Container(
-              child: CircularProgressIndicator(),
-            ):foodPromoContainer(),
+            //     (mainMenu == null || isLoading)?Container(
+            //   child: CircularProgressIndicator(),
+            // ):
+            foodPromoContainer(),
               ],
             ),
           )
@@ -84,9 +73,9 @@ class _FoodPromoState extends State<FoodPromo>{
       child: ListView.builder(
           scrollDirection: Axis.horizontal,
           shrinkWrap: true,
-          itemCount: mainMenu.promo.length,
+          itemCount: (widget.mp.mainMenu == null)? 2:widget.mp.mainMenu.promo.length,
           itemBuilder: (context, i) {
-            return renderFoodPromo(mainMenu.promo[i]);
+            return (widget.mp.mainMenu == null)? loadingBox(height: 100, width: 100):renderFoodPromo(widget.mp.mainMenu.promo[i]);
           }),
     );
   }

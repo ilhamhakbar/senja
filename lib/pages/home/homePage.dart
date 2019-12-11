@@ -65,7 +65,7 @@ class _HomePageState extends State<HomePage> {
                     child: (isLoading)?loadingBox(height: 200, width: 100):Text("Morning, "+name, style: t2,),
                   ),
                   Container(
-                    padding: EdgeInsets.only(left: 25.0, right: 5.0, bottom: 30.0),
+                    padding: EdgeInsets.only(left: 25.0, right: 5.0, bottom: 20.0),
                      alignment: Alignment.bottomLeft,
                     child: Text("Our stoves are heated up!", style: h2,),
                   )
@@ -84,7 +84,7 @@ class _HomePageState extends State<HomePage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  FoodCardPicks(),
+                  FoodCardPicks(mp: mp),
                 ],
               ),
             ),
@@ -92,7 +92,7 @@ class _HomePageState extends State<HomePage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  FoodPromo(),
+                  FoodPromo(mp: mp,),
                 ],
               ),
             ),

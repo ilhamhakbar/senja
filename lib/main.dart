@@ -27,7 +27,7 @@ class SenjaAppState extends State<SenjaApp>{
       child: MaterialApp(
       title: 'Coba',
       theme: ThemeData(
-        fontFamily: "mignon_regular",
+        fontFamily: "SFRegular",
         primarySwatch: Colors.blue,
         primaryColor: Color(0xffbe9b7b),
         appBarTheme: AppBarTheme(
@@ -38,7 +38,8 @@ class SenjaAppState extends State<SenjaApp>{
               color: Colors.white,
               textTheme: TextTheme(
                   title: TextStyle(
-                      fontSize: 20,
+                    fontFamily: "SFBold",
+                      fontSize: 25,
                       color: Colors.black
                   )
               )

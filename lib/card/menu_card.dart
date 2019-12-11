@@ -3,100 +3,40 @@ import 'package:senja/constants/theme.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:senja/models/product.dart';
 import 'package:senja/scoped-model/products_model.dart';
-import 'package:senja/card/menu_card.dart';
 
-class MenuListView extends StatefulWidget {
-  final bool isVertical;
-  MenuListView(this.isVertical);
+class MenuCard extends StatefulWidget {
+
+  final Product product;
+  final ProductsModel model;
+
+  MenuCard({this.model, this.product});
+
   @override
-  State<StatefulWidget> createState() {
-    return MenuListViewState();
-  }
+  _MenuCardState createState() => _MenuCardState();
 }
 
-class MenuListViewState extends State<MenuListView> {
+class _MenuCardState extends State<MenuCard> {
 
-  bool showminus = false;
-  
-  Widget _buildMenuItems(BuildContext context, int position, Product product,
-      ProductsModel model) {
-    return MenuCard(model: model,product: product,);
-    // _buildMenuCard(context, product, model);
-  }
-
-  Widget _buildMenuList(List<Product> products, ProductsModel model) {
-    Widget productCard;
-    if (products.length > 0) {
-      productCard = Container(
-        padding: EdgeInsets.only(left: 8, top: 0),
-        height: 250,
-        child: ListView.builder(
-          itemBuilder: (BuildContext context, int index) =>
-              _buildMenuItems(context, index, products[index], model),
-          scrollDirection: Axis.horizontal,
-          itemCount: products.length,
-        ),
-      );
-    } else {
-      productCard = Center(child: Text("No Products Found!"));
-    }
-    return productCard;
-  }
-
-  Widget _buildMenuListVertical(List<Product> products, ProductsModel model) {
-    Widget productCard;
-    if (products.length > 0) {
-      productCard = Container(
-        child: ListView.builder(
-          shrinkWrap: true,
-          physics: ClampingScrollPhysics(),
-          itemBuilder: (BuildContext context, int index) => _buildMenuItems(
-            context,
-            index,
-            products[index],
-            model,
-          ),
-          // scrollDirection: isVertical? Axis.horizontal : Axis.vertical,
-          itemCount: products.length,
-        ),
-      );
-    } else {
-      productCard = Center(child: Text('NO, PRODUCTS FOUND :( '));
-    }
-    return productCard;
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return new ScopedModelDescendant<ProductsModel>(
-      builder: (BuildContext context, Widget child, ProductsModel model) {
-        return widget.isVertical
-            ? _buildMenuList(model.products, model)
-            : _buildMenuListVertical(model.products, model);
-      },
-    );
-  }
-
-      // bool showminus = false;
+    bool showminus = false;
 
 
-  Widget _buildMenuCard(
-      BuildContext context, Product product, ProductsModel model) {
-
-    void incrementCounterPlus(){
-      if(product.quantity == 0){
+  void incrementCounterPlus(){
+      if(widget.product.quantity == 0){
       setState(() {
         showminus = true;
       });
     }
     }
     void incrementCounterMinus(){
-      if(product.quantity == 0){
+      if(widget.product.quantity == 0){
         setState(() {
           showminus = false;
         });
       }
     }
+
+  @override
+  Widget build(BuildContext context) {
     return Container(
         child: Row(
       children: <Widget>[
@@ -111,7 +51,7 @@ class MenuListViewState extends State<MenuListView> {
                 Container(
                   decoration: BoxDecoration(
                       image: DecorationImage(
-                          image: NetworkImage(product.image), fit: BoxFit.cover),
+                          image: NetworkImage(widget.product.image), fit: BoxFit.cover),
                       borderRadius: BorderRadius.all(Radius.circular(10))),
                   height: 75,
                   width: 75,
@@ -123,19 +63,19 @@ class MenuListViewState extends State<MenuListView> {
                     children: <Widget>[
                       Container(
                           alignment: Alignment.topLeft,
-                          child: Text(product.title, style: h4)),
+                          child: Text(widget.product.title, style: h4)),
                       Container(
                         width: sizeHorizontal * 45,
                         padding: EdgeInsets.only(top: 10.0),
                         child: Text(
-                          product.description,
+                          widget.product.description,
                           style: TextStyle(color: Colors.grey),
                         ),
                       ),
                       Container(
                           padding: EdgeInsets.only(top: 10.0),
                           child: Text(
-                            'Rp ' + product.price.toString(),
+                            'Rp ' + widget.product.price.toString(),
                             style: TextStyle(color: Colors.black),
                           )),
                     ],
@@ -163,7 +103,7 @@ class MenuListViewState extends State<MenuListView> {
                         children: <Widget>[
                           InkWell(
                             onTap: () {
-                              model.removeFromCart(product);
+                              widget.model.removeFromCart(widget.product);
                               incrementCounterMinus();
                             },
                             child: Container(
@@ -186,14 +126,14 @@ class MenuListViewState extends State<MenuListView> {
                             width: 30.0,
                             height: 30.0,
                             child: Text(
-                              product.quantity.toString(),
+                              widget.product.quantity.toString(),
                               style: h4,
                               textAlign: TextAlign.center,
                             ),
                           ),
                           InkWell(
                             onTap: () {
-                              model.addToCart(product);
+                              widget.model.addToCart(widget.product);
                               incrementCounterPlus();
                             },
                             child: Container(
@@ -219,7 +159,7 @@ class MenuListViewState extends State<MenuListView> {
                           ),
                           InkWell(
                             onTap: (){
-                              model.addToCart(product);
+                              widget.model.addToCart(widget.product);
                               showminus = true;
                             },
                             child: Container(

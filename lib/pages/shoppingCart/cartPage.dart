@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:senja/constants/global.dart';
 import 'package:senja/constants/theme.dart';
+import 'package:senja/widget/BookingTempat/tempat_duduk_screen.dart';
 
 class ShoppingCart extends StatefulWidget {
   @override
@@ -141,7 +143,7 @@ class _ShoppingCartState extends State<ShoppingCart> {
                         Text(
                           "Pesan Tempat Duduk",
                           style: t3,
-                        )
+                        ),
                       ],
                     ),
                   ),

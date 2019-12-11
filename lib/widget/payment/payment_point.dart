@@ -2,16 +2,42 @@ import 'package:flutter/material.dart';
 import 'package:senja/constants/theme.dart';
 
 class PaymentPoint extends StatefulWidget {
+
+  final state = PaymentPointState();
   @override
   State<StatefulWidget> createState() {
-    return PaymentPointState();
+    return state;
   }
+
+  String get paymentMethod => state.method;
+
+
 }
 
 class PaymentPointState extends State<PaymentPoint> {
   Color _goPayColor = Colors.white;
   Color _ovoColor = Colors.white;
   Color _creditColor = Colors.white;
+  String method = '';
+
+  paymentMethod(){
+    if(_goPayColor != Colors.white ){
+      return  'gopay';
+    }
+    else if(_ovoColor != Colors.white){
+            return  'ovo';
+
+    }
+    else if(_creditColor != Colors.white){
+            return  'credit';
+
+    }
+    else{
+            return  'notvalid';
+
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -25,6 +51,7 @@ class PaymentPointState extends State<PaymentPoint> {
               _goPayColor = Color(0xffbe9b7b);
               _ovoColor = Colors.white;
               _creditColor = Colors.white;
+              method = 'gopay';
               });
               
             },
@@ -65,6 +92,8 @@ class PaymentPointState extends State<PaymentPoint> {
               _goPayColor = Colors.white;
               _ovoColor = Color(0xffbe9b7b);
               _creditColor = Colors.white;
+                            method = 'ovo';
+
               });
             },
             child: Container(
@@ -103,6 +132,8 @@ class PaymentPointState extends State<PaymentPoint> {
               _goPayColor = Colors.white;
               _ovoColor = Colors.white;
               _creditColor = Color(0xffbe9b7b);
+                            method = 'credit';
+
               });
               },
               child: Container(
@@ -122,12 +153,12 @@ class PaymentPointState extends State<PaymentPoint> {
                       width: sizeHorizontal * 15,
                       height: sizeHorizontal * 15,
                       padding: EdgeInsets.all(5),
-                      child: Image.asset("assets/images/cc.png"),
+                      child: Image.asset("assets/images/bca.png"),
                     ),
                     Container(
                       padding: EdgeInsets.only(top: 10),
                       child: Text(
-                        "Kartu Kredit",
+                        "Transfer BCA",
                         style: TextStyle(fontFamily: "SFBold"),
                       ),
                     )
