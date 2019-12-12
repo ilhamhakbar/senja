@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:senja/pages/history/history.dart';
 import 'package:senja/pages/Cafe/cafe.dart';
-import 'package:senja/pages/Order/order.dart';
-import 'package:senja/pages/ShoppingCart/cartPage.dart';
 import 'package:senja/pages/home/homePage.dart';
+import 'package:senja/pages/order/orderHomePage.dart';
 import 'package:senja/pages/profile/profile.dart';
 import 'package:provider/provider.dart';
 import 'package:senja/provider/menu_provider.dart';
-import 'package:senja/widget/Order/foodMenu.dart';
-import 'package:senja/widget/Order/orderBestSeller.dart';
+
 
 
 class Home extends StatefulWidget{

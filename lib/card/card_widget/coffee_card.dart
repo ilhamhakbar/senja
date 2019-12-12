@@ -4,18 +4,18 @@ import 'package:scoped_model/scoped_model.dart';
 import 'package:senja/models/product.dart';
 import 'package:senja/scoped-model/products_model.dart';
 
-class MenuCard extends StatefulWidget {
+class CoffeeCard extends StatefulWidget {
 
   final Product product;
   final ProductsModel model;
 
-  MenuCard({this.model, this.product});
+  CoffeeCard({this.model, this.product});
 
   @override
-  _MenuCardState createState() => _MenuCardState();
+  _CoffeeCardState createState() => _CoffeeCardState();
 }
 
-class _MenuCardState extends State<MenuCard> {
+class _CoffeeCardState extends State<CoffeeCard> {
 
     bool showminus = false;
 

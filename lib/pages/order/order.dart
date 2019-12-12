@@ -1,96 +1,81 @@
 import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
+import 'package:senja/card/bestseller_view.dart';
 import 'package:senja/constants/theme.dart';
 import 'package:senja/scoped-model/products_model.dart';
-import 'package:senja/pages/Order/orderPage.dart';
-import 'package:senja/widget/cart/cart_ui.dart';
+import 'package:senja/card/category_list_view.dart';
 
-class OrderHomePage extends StatelessWidget {
+class Order extends StatefulWidget {
   @override
-  Widget build(BuildContext context) {
-    return ScopedModelDescendant<ProductsModel>(
-      builder: (
-        BuildContext context,
-        Widget child,
-        ProductsModel model,
-      ) {
-        return Scaffold(
-            appBar: AppBar(),
-            body: Stack(
-              children: <Widget>[
-                OrderPage(),
-                 model.getCartList.length >0 ? Positioned(
-                  child: Align(
-                      alignment: FractionalOffset.bottomCenter,
-                      child: Container(
-                        height: 75,
-                        color: Color(0xffbe9b7b),
-                        child: Container(
-                          width: MediaQuery.of(context).size.width,
-                          child: Stack(
-                            children: <Widget>[
-                              Container(
-                                margin: EdgeInsets.only(left: 25),
-                                 height: 75,
-                                  alignment: FractionalOffset.centerLeft,
-                                child: Icon(IconData(0xe900, fontFamily: 'Shoppingbag',),color: Colors.white,),
-                              ),  
-                              Container(
-                                margin: EdgeInsets.only(left: 50),
-                                height: 75,
-                                alignment: FractionalOffset.centerLeft,
-                                child: FlatButton(
-                                  // color: Colors.white,
-                                  child: Text(
-                                    'Order',
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: sizeHorizontal * 6,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                  onPressed: () {
-                                    Navigator.push(context, MaterialPageRoute(
-                                      builder: (BuildContext context) => CartPage()
-                                    ));
-                                  },
-                                ),
-                              ),
-                              Container(
-                                margin: EdgeInsets.only(right: 110),
-                                height: 75,
-                                alignment: FractionalOffset.centerRight,
-                                child: Text(
-                                  '${model.getCartList.length} Items',
-                                  style: TextStyle(color: Colors.white),
-                                ),
-                              ),
-                              // Container(
-                              //   margin: EdgeInsets.only(right: 95),
-                              //   height: 70,
-                              //   alignment: FractionalOffset.centerRight,
-                              //   child: Text(
-                              //     '.',
-                              //     style: TextStyle(color: Colors.white, fontSize: sizeHorizontal * 12),textAlign: TextAlign.center,
-                              //   ),
-                              // ),
-                              Container(
-                                margin: EdgeInsets.only(right: 20),
-                                height: 75,
-                                alignment: Alignment.centerRight,
-                                child: Text(
-                                  'Rp. ${model.getCartPrice} ',
-                                  style: TextStyle(color: Colors.white),
-                                ),
-                              ),
-                              
-                            ],
-                          ),
-                        ),
-                      )),
-                ) : Container(),
-              ],
-            ));
-      },
-    );
+  _OrderState createState() => _OrderState();
+}
+
+class _OrderState extends State<Order> {
+  @override
+  void initState(){
+    
   }
+
+
+  Widget build(BuildContext context) {
+    return ScopedModelDescendant(
+        builder: (BuildContext context, Widget child, ProductsModel model) {
+
+    return ListView(
+      children: <Widget>[
+        // Container(
+        //   padding: EdgeInsets.all(16),
+        //   child: Text(
+        //     'Your favourites',
+        //     style: TextStyle(
+        //       fontWeight: FontWeight.bold,
+        //       fontSize: 18,
+        //       fontFamily: 'Lato',
+        //     ),
+        //   ),
+        // ),
+        // MenuListView(true),
+        // Divider(),
+          Container(
+          padding: EdgeInsets.all(16),
+          child: Text(
+            'Best Seller',
+            style: h4 ,
+          ),
+        ),
+        BestSellerListView(false),
+        Divider(),
+        Container(
+          child: Column(
+            children: <Widget>[
+              Container(
+                child:  ListView.builder(
+                  physics: NeverScrollableScrollPhysics(),
+            itemCount: model.categoryNames.length,
+            shrinkWrap: true,
+            itemBuilder: (context, i){
+              return Container(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Container(
+                       padding: EdgeInsets.all(16),
+                      child: Text(model.categoryNames[i],style: h4,),
+                    ),
+                    Container(
+                      child:  CategoryListView(isVertical: false,categoryName: model.categoryNames[i],),
+                    )
+                  ],
+                ),
+              );
+            },
+          ),
+              )
+            ],
+          ),
+        ),
+      
+      ],
+    );
+  });}
 }

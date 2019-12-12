@@ -162,7 +162,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           child: Text('Total Pesanan',
                               style: TextStyle(
                                   fontSize: sizeHorizontal * 6,
-                                  fontFamily: "MignonRegular",
+                                  fontFamily: "SFRegular",
                                   color: Colors.black54)),
                         )
                       ],
@@ -181,14 +181,14 @@ class _ProfilePageState extends State<ProfilePage> {
                           child: Text('Jenis Menu',
                               style: TextStyle(
                                   fontSize: sizeHorizontal * 6,
-                                  fontFamily: "MignonRegular",
+                                  fontFamily: "SFRegular",
                                   color: Colors.black54)),
                         ),
                         Container(
                           child: Text('yang pernah dipesan',
                               style: TextStyle(
                                   fontSize: sizeHorizontal * 4,
-                                  fontFamily: "MignonRegular",
+                                  fontFamily: "SFRegular",
                                   color: Colors.black54)),
                         )
                       ],
@@ -228,11 +228,13 @@ class _ProfilePageState extends State<ProfilePage> {
                           ),
                         ),
                         Container(
-                            padding: EdgeInsets.fromLTRB(20, 15, 0, 0),
+                          width: sizeHorizontal*70,
+                            padding: EdgeInsets.fromLTRB(20, 12, 0, 0),
                             child: Text('Ubah Profil', style: t3)),
                         Container(
-                          padding: EdgeInsets.fromLTRB(
-                              sizeHorizontal * 40, 20, 0, 0),
+                          // padding: EdgeInsets.fromLTRB(
+                          //     sizeHorizontal * 40, 20, 0, 0),
+                          padding: EdgeInsets.only(top: 17),
                           child: Icon(
                             Icons.arrow_forward_ios,
                             color: Color(0xffbe9b7b),

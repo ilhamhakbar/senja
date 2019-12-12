@@ -15,13 +15,18 @@ class Product {
   String title;
   String description;
   int price;
+  String category;
   String image = '';
+  bool isBestSeller;
   int quantity =0;
+  
   Product(
     this.id,
     this.title,
     this.description,
     this.price,
+    this.category,
+    this.isBestSeller,
     this.image,
   );
   List<Product> getProducts(String str) {
@@ -34,6 +39,8 @@ class Product {
         json["title"],
         json["description"],
         json["price"],
+        json["category"],
+        json["isBestSeller"],
         json["image"],
       );
 
@@ -42,6 +49,8 @@ class Product {
         "title": title,
         "description": description,
         "price": title,
+        "category": category,
+        "isBestSeller": isBestSeller,
         "image": image,
       };
 }

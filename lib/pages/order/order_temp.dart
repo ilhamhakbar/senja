@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:senja/constants/theme.dart';
-import 'package:senja/card/product_card.dart';
+import 'package:senja/card/bestseller_view.dart';
 
 class OrderPage extends StatelessWidget {
   @override
@@ -31,7 +31,7 @@ class OrderPage extends StatelessWidget {
             style: h3 ,
           ),
         ),
-        MenuListView(false),
+        BestSellerListView(false),
         Divider(),
       ],
     );

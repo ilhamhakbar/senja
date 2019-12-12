@@ -8,6 +8,8 @@ class ProductsModel extends Model {
   List<Product> _products = [];
   List<Product> _cartList = [];
   List<Product> _cartTemp = [];
+  List<Product> _bestSeller = [];
+  List<Product> _coffee = [];
   // List<Product> _quantity = [];
   List<Item> _items = [];
   List<Map<String, dynamic>> _mapItems = [];
@@ -16,11 +18,15 @@ class ProductsModel extends Model {
   final baseUrl = 'http://api.flutterapp.in/api/';
 
   ProductsModel() {
+    _products.clear();
+    _products = List();
     _products.add(Product(
       1,
       'Americano Ice',
       ' ',
       22000,
+      'Coffee',
+      false,
       'https://i0.wp.com/resepkoki.id/wp-content/uploads/2019/03/kopi.png?fit=883%2C589&ssl=1',
     ));
 
@@ -29,6 +35,8 @@ class ProductsModel extends Model {
       'Coffee Latte Ice',
       'A Classic Combination Of Rich Espresso And Chilled Milk To Balance It Naturally Refreshing',
       28000,
+      'Coffee',
+      false,
       'https://cdn.shopify.com/s/files/1/0060/6230/9494/articles/iced-latte_850x.png?v=1547659326',
     ));
 
@@ -37,6 +45,8 @@ class ProductsModel extends Model {
       'Cappuccino Ice',
       'A Classic Combination Of Rich Espresso And Shaken Milk To Balance It Naturally Refreshing',
       28000,
+      'Coffee',
+      false,
       'https://image.freepik.com/free-photo/favorite-coffee-menu-ice-cappuccino-sweet-beverage-served-with-milk-foam_6351-1491.jpg',
     ));
 
@@ -45,6 +55,8 @@ class ProductsModel extends Model {
       'Coffee Mocha Ice',
       'Combination Of Espresso, Bittersweet Chocolate Sauce And Mil, Served Over Ice',
       30000,
+      'Coffee',
+      false,
       'https://pjscoffeevietnam.com/wp-content/uploads/2018/01/Cold-brew-iced-mocha-1.jpg',
     ));
 
@@ -53,6 +65,8 @@ class ProductsModel extends Model {
       'Es Kopi Susu',
       'Special Coffee Flavored With Sweet Secret Ingridient. Made To Break The Stereotype Of Es Kopi Susu In This Town',
       25000,
+      'Coffee',
+      true,
       'https://duniakulinerku.files.wordpress.com/2018/12/Es-Kopi-Lezat.jpg',
     ));
 
@@ -61,8 +75,41 @@ class ProductsModel extends Model {
       'Matchapresso',
       'A Classic Combination Of Rich Espresso, Matcha And Shaken Milk To Balance It Naturally Refreshing',
       30000,
+      'Food',
+      true,
       'https://jianwenquan.com/wp-content/uploads/2018/09/25443188_1384947164965964_2098746357913615503_n.jpg?x74638',
     ));
+
+     _products.add(Product(
+      7,
+      'Bakmi',
+      'A Classic Combination Of Rich Espresso, Matcha And Shaken Milk To Balance It Naturally Refreshing',
+      30000,
+      'Food',
+      true,
+      'https://jianwenquan.com/wp-content/uploads/2018/09/25443188_1384947164965964_2098746357913615503_n.jpg?x74638',
+    ));
+
+     _products.add(Product(
+      8,
+      'Bakso',
+      'A Classic Combination Of Rich Espresso, Matcha And Shaken Milk To Balance It Naturally Refreshing',
+      30000,
+      'Food',
+      true,
+      'https://jianwenquan.com/wp-content/uploads/2018/09/25443188_1384947164965964_2098746357913615503_n.jpg?x74638',
+    ));
+
+     _products.add(Product(
+      9,
+      'Ketoprak',
+      'A Classic Combination Of Rich Espresso, Matcha And Shaken Milk To Balance It Naturally Refreshing',
+      30000,
+      'Others',
+      true,
+      'https://jianwenquan.com/wp-content/uploads/2018/09/25443188_1384947164965964_2098746357913615503_n.jpg?x74638',
+    ));
+        splitToCategories();
   }
 
   List<Product> get products {
@@ -110,6 +157,25 @@ class ProductsModel extends Model {
   void emptyCart(Product product){
     _cartList = [];
     _cartTemp = [];
+  }
+
+  // void bestSeller(){
+  //   for(Product i in _products.where((a) => a.isBestSeller == true).toList()){
+  //     _bestSeller.add(i);  
+  //   }
+  // }
+  // void coffee(){
+  //   for(Product i in _products.where((a) => a.category == 'Coffee').toList()){
+  //     _coffee.add(i);
+  //   }
+  // }
+  List<String> categoryNames =[];
+
+  void splitToCategories(){
+    for(Product p in _products){
+      categoryNames.add(p.category);
+    }
+    categoryNames = categoryNames.toSet().toList();
   }
 
   void addToMap(){

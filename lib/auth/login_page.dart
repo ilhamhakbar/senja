@@ -150,7 +150,7 @@ class _LoginPageState extends State<LoginPage> {
                 hintText: "E-mail",
                 hintStyle: TextStyle(
                     color: Colors.grey,
-                    fontFamily: "MignonRegular",
+                    fontFamily: "SFRegular",
                     fontSize: sizeHorizontal * 5),
                 enabledBorder: OutlineInputBorder(
                     borderSide:
@@ -167,7 +167,7 @@ class _LoginPageState extends State<LoginPage> {
             controller: passwordController,
             style: TextStyle(
                 color: Colors.grey,
-                fontFamily: "MignonRegular",
+                fontFamily: "SFRegular",
                 fontSize: sizeHorizontal * 5),
             keyboardType: TextInputType.emailAddress,
             obscureText: _isHidePassword,
@@ -187,7 +187,7 @@ class _LoginPageState extends State<LoginPage> {
               ),
               hintStyle: TextStyle(
                   color: Colors.grey,
-                  fontFamily: "MignonRegular",
+                  fontFamily: "SFRegular",
                   fontSize: sizeHorizontal * 5),
               enabledBorder: OutlineInputBorder(
                   borderSide: BorderSide(color: Colors.transparent, width: 0.0),
@@ -214,7 +214,7 @@ class _LoginPageState extends State<LoginPage> {
               textColor: Colors.white,
               child: Text(
                 'Log In',
-                style: h4,
+                style: h5,
               ),
               onPressed: () async {
                 SystemChannels.textInput.invokeMethod('TextInput.hide');
@@ -242,20 +242,25 @@ class _LoginPageState extends State<LoginPage> {
                 borderRadius: BorderRadius.all(Radius.circular(5.0)),
               ),
               padding: EdgeInsets.only(
-                left: 50,
+                left: 20,
                 right: 50,
               ),
               textColor: Colors.grey,
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                mainAxisAlignment: MainAxisAlignment.center ,
                 children: <Widget>[
-                   SvgPicture.asset(
-                            'assets/images/search.svg',
-                            height: 20,
-                          ),
-                  Text(
-                    'Sign in with Google',
-                    style: h4,
+                   Container(
+                     padding: EdgeInsets.only(right: 20),
+                     child: SvgPicture.asset(
+                              'assets/images/search.svg',
+                              height: 20,
+                            ),
+                   ),
+                  Container(
+                    child: Text(
+                      'Sign in with Google',
+                      style: h5,
+                    ),
                   ),
                 ],
               ),

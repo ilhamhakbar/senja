@@ -19,14 +19,14 @@ Future<User> requestLogin(
 ) async {
 
   SharedPreferences prefs = await SharedPreferences.getInstance();
-  final url = uri.baseurl + uri.login;
+  final loginurl = uri.baseurl + uri.login;
 
   Map<String, String> body={
     'email': email,
     'password': password
   };
 
-  final response = await http.post(url, body: body);
+  final response = await http.post(loginurl, body: body);
 
   if (json.decode(response.body)['status_code'] == 200){
     await saveUserModel(json.decode(response.body));
@@ -49,6 +49,13 @@ Future<User> requestLogin(
     throw new Exception(json.decode(response.body)['message']);
   }
 }
+
+// Future<Product> getProduct(
+//   BuildContext context,
+// ) async {
+//   SharedPreferences prefs = await SharedPreferences.getInstance();
+// }
+
 
 //Bayar Gopay
 Future<void> buatTransaksi({

@@ -7,7 +7,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:provider/provider.dart';
 import 'package:senja/provider/menu_provider.dart';
 
-
 class HomePage extends StatefulWidget {
   @override
   _HomePageState createState() => _HomePageState();
@@ -25,7 +24,7 @@ class _HomePageState extends State<HomePage> {
     super.initState();
     getUser();
   }
-  
+
   @override
   Widget build(BuildContext context) {
     mp = Provider.of<MenuProvider>(context);
@@ -39,35 +38,46 @@ class _HomePageState extends State<HomePage> {
               child: Stack(
                 children: <Widget>[
                   Image.asset("assets/images/bgimages.jpeg",
-                  height: 250,
-                  width: sizeHorizontal*100,
-                  fit: BoxFit.fill
-                  ),
+                      height: 250,
+                      width: sizeHorizontal * 100,
+                      fit: BoxFit.fill),
                   Container(
-              decoration: BoxDecoration(
-                color: Colors.white.withOpacity(0.5),
-              ),
+                    decoration: BoxDecoration(
+                      color: Colors.white.withOpacity(0.5),
+                    ),
                   ),
                   Positioned(
                     top: 80,
                     right: sizeHorizontal * 30,
                     left: sizeHorizontal * 30,
                     child: Container(
-                  alignment: Alignment.center,
-                  //  padding: EdgeInsets.only(left: 25.0, right: 5.0, bottom: 60.0), 
-                   width: 120,
-                   child: Image.asset("assets/images/senja_1.png"),
-                  ),
-                  ),
-                  Container(
-                    padding: EdgeInsets.only(left: 25.0, right: 5.0, bottom: 60.0),
-                     alignment: Alignment.bottomLeft,
-                    child: (isLoading)?loadingBox(height: 200, width: 100):Text("Morning, "+name, style: t2,),
+                      alignment: Alignment.center,
+                      //  padding: EdgeInsets.only(left: 25.0, right: 5.0, bottom: 60.0),
+                      width: 120,
+                      child: Image.asset("assets/images/senja_1.png"),
+                    ),
                   ),
                   Container(
-                    padding: EdgeInsets.only(left: 25.0, right: 5.0, bottom: 20.0),
-                     alignment: Alignment.bottomLeft,
-                    child: Text("Our stoves are heated up!", style: h2,),
+                    width: sizeHorizontal * 70,
+                    padding:
+                        EdgeInsets.only(left: 25.0, right: 5.0, bottom: 60.0),
+                    alignment: Alignment.bottomLeft,
+                    child: (isLoading)
+                        ? loadingBox(height: 200, width: 100)
+                        : Text(
+                            "Morning, " + name,
+                            style: t2,
+                          ),
+                  ),
+                  Container(
+                    width: sizeHorizontal * 70,
+                    padding:
+                        EdgeInsets.only(left: 25.0, right: 5.0, bottom: 20.0),
+                    alignment: Alignment.bottomLeft,
+                    child: Text(
+                      "Our stoves are heated up!",
+                      style: h2,
+                    ),
                   )
                 ],
               ),
@@ -92,7 +102,9 @@ class _HomePageState extends State<HomePage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  FoodPromo(mp: mp,),
+                  FoodPromo(
+                    mp: mp,
+                  ),
                 ],
               ),
             ),
@@ -101,15 +113,15 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
-  getUser() async{
-    setState(() {
-      isLoading =true;
-    });
-  SharedPreferences prefs = await SharedPreferences.getInstance();
-  name = prefs.getString("name");
-  setState(() {
-    isLoading = false;
-  });
-}
-}
 
+  getUser() async {
+    setState(() {
+      isLoading = true;
+    });
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    name = prefs.getString("name");
+    setState(() {
+      isLoading = false;
+    });
+  }
+}
