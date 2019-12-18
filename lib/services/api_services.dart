@@ -4,8 +4,10 @@ import 'dart:io';
 import 'package:path/path.dart' as p;
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:senja/constants/global.dart';
 import 'package:senja/constants/url.dart' as uri;
 import 'package:senja/controllers/userController.dart';
+import 'package:senja/models/product.dart';
 import 'package:senja/models/user.dart';
 import 'package:senja/models/transaksi.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -14,7 +16,7 @@ import 'package:url_launcher/url_launcher.dart';
 //Login
 Future<User> requestLogin(
   BuildContext context,
-  String email,
+  String username,
   String password
 ) async {
 
@@ -22,7 +24,7 @@ Future<User> requestLogin(
   final loginurl = uri.baseurl + uri.login;
 
   Map<String, String> body={
-    'email': email,
+    'username': username,
     'password': password
   };
 
@@ -50,11 +52,41 @@ Future<User> requestLogin(
   }
 }
 
-// Future<Product> getProduct(
-//   BuildContext context,
-// ) async {
-//   SharedPreferences prefs = await SharedPreferences.getInstance();
-// }
+Future<List<Product>> getTodaysPicks(
+) async{
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  final todayspickUrl = uri.baseurl + uri.todayspick;
+  final response = await http.get(todayspickUrl, headers: {"Authorization": "Bearer"+prefs.getString('spToken')});
+  // print(response.body);
+  if(json.decode(response.body)['status_code'] == 200){
+    final jsonResponse = json.decode(response.body);
+    // print(jsonResponse);
+    return (jsonResponse['data'] as List).map((data) => Product.fromJson(data)).toList();
+  }
+}
+
+Future<List<Product>> getProductOutlet1(
+) async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  final outlet1url = uri.baseurl + uri.getProduct1;
+  final response = await http.get(outlet1url, headers: {"Authorization": "Bearer"+prefs.getString('spToken')});
+
+  if (response.statusCode == 200){
+    final jsonResponse = json.decode(response.body);
+    return (jsonResponse['data'] as List).map((data) => Product.fromJson(data)).toList();
+    // globalProduct = (jsonResponse['data'] as List).map((data) => Product.fromJson(data)).toList();
+
+    // await saveProductModel(json.decode(response.body));
+
+    // print(jsonResponse);
+  }else{
+    // print(response.statusCode);
+    // print(response.body);
+  }
+
+
+  
+}
 
 
 //Bayar Gopay

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:senja/constants/theme.dart';
 import 'package:scoped_model/scoped_model.dart';
+import 'package:senja/constants/url.dart' as uri;
 import 'package:senja/models/product.dart';
 import 'package:senja/scoped-model/products_model.dart';
 
@@ -51,7 +52,7 @@ class _BestSellerCardState extends State<BestSellerCard> {
                 Container(
                   decoration: BoxDecoration(
                       image: DecorationImage(
-                          image: NetworkImage(widget.product.image), fit: BoxFit.cover),
+                          image: NetworkImage(uri.imageUrl+widget.product.image), fit: BoxFit.cover),
                       borderRadius: BorderRadius.all(Radius.circular(10))),
                   height: 75,
                   width: 75,

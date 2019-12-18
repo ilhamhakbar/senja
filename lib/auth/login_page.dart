@@ -72,10 +72,10 @@ class _LoginPageState extends State<LoginPage> {
     await _googleSignIn.signIn();
   }
 
-  FocusNode emailFocusNode = FocusNode();
+  FocusNode usernameFocusNode = FocusNode();
   FocusNode passwordFocusNode = FocusNode();
 
-  TextEditingController emailController = TextEditingController(
+  TextEditingController usernameController = TextEditingController(
       // text: 'vantura.id@gmail.com'
       );
   TextEditingController passwordController = TextEditingController(
@@ -140,14 +140,14 @@ class _LoginPageState extends State<LoginPage> {
             ],
           ),
           TextFormField(
-            focusNode: emailFocusNode,
-            controller: emailController,
+            focusNode: usernameFocusNode,
+            controller: usernameController,
             style: TextStyle(color: Colors.grey),
             keyboardType: TextInputType.emailAddress,
             decoration: InputDecoration(
                 fillColor: Color(0xffe7eaf1),
                 filled: true,
-                hintText: "E-mail",
+                hintText: "Useranme",
                 hintStyle: TextStyle(
                     color: Colors.grey,
                     fontFamily: "SFRegular",
@@ -220,7 +220,7 @@ class _LoginPageState extends State<LoginPage> {
                 SystemChannels.textInput.invokeMethod('TextInput.hide');
                 try {
                   await requestLogin(
-                      context, emailController.text, passwordController.text);
+                      context, usernameController.text, passwordController.text);
                   // print(context);
                   showInSnackBar(
                       context, widget.scaffoldKey, 'Sukses Login', 4);

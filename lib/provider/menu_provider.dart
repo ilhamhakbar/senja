@@ -33,7 +33,7 @@ class MenuProvider with ChangeNotifier{
     try{
       final response = await http.get('http://media.sipaud.id/jsonmock/senjaapp/home/001').timeout(Duration(seconds: 5));
   if(response.statusCode == 200){
-    _mainMenu = MainMenu.fromJson(json.decode(response.body));
+  //   _mainMenu = MainMenu.fromJson(json.decode(response.body));
     _changeState(MenuLoadingState.none);
   }else{
     _changeState(MenuLoadingState.error);

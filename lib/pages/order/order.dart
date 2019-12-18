@@ -2,8 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:senja/card/bestseller_view.dart';
 import 'package:senja/constants/theme.dart';
+import 'package:senja/models/product.dart';
 import 'package:senja/scoped-model/products_model.dart';
 import 'package:senja/card/category_list_view.dart';
+import 'package:senja/services/api_services.dart';
+
 
 class Order extends StatefulWidget {
   @override
@@ -11,16 +14,18 @@ class Order extends StatefulWidget {
 }
 
 class _OrderState extends State<Order> {
+  List<Product> products = [];
+  bool isLoading = false;
   @override
   void initState(){
-    
   }
+
+
 
 
   Widget build(BuildContext context) {
     return ScopedModelDescendant(
         builder: (BuildContext context, Widget child, ProductsModel model) {
-
     return ListView(
       children: <Widget>[
         // Container(
@@ -60,10 +65,10 @@ class _OrderState extends State<Order> {
                   children: <Widget>[
                     Container(
                        padding: EdgeInsets.all(16),
-                      child: Text(model.categoryNames[i],style: h4,),
+                      child: Text(model.categoryNames[i].toString(),style: h4,),
                     ),
                     Container(
-                      child:  CategoryListView(isVertical: false,categoryName: model.categoryNames[i],),
+                      child:  CategoryListView(isVertical: false,categoryName: model.categoryNames.toString()[i],),
                     )
                   ],
                 ),

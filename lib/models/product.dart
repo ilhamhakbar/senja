@@ -15,7 +15,7 @@ class Product {
   String title;
   String description;
   int price;
-  String category;
+  int category;
   String image = '';
   bool isBestSeller;
   int quantity =0;
@@ -36,21 +36,21 @@ class Product {
   
   factory Product.fromJson(Map<String, dynamic> json) => new Product(
         json["id"],
-        json["title"],
-        json["description"],
-        json["price"],
-        json["category"],
-        json["isBestSeller"],
+        json["product_name"],
+        json["product_description"],
+        json["final_price"],
+        json["categories_id"],
+        (json["is_bestseller"] == 1),
         json["image"],
       );
 
   Map<String, dynamic> toJson() => {
         "id":id,
-        "title": title,
-        "description": description,
-        "price": title,
-        "category": category,
-        "isBestSeller": isBestSeller,
+        "product_name": title,
+        "product_description": description,
+        "final_price": title,
+        "categories_id": category,
+        "is_bestseller": isBestSeller,
         "image": image,
       };
 }

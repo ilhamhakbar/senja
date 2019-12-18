@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:senja/constants/theme.dart';
+import 'package:senja/models/product.dart';
 
-
+List<Product> globalProduct;
+List<Product> globalPicks;
 //Colors
 const Color senjaBrown = Color(0xffbe9b7b);
 const Color successGreen = Color(0xFF8bc24a);
