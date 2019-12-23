@@ -60,7 +60,7 @@ Future<List<Product>> getTodaysPicks(
   // print(response.body);
   if(json.decode(response.body)['status_code'] == 200){
     final jsonResponse = json.decode(response.body);
-    // print(jsonResponse);
+    print(jsonResponse);
     return (jsonResponse['data'] as List).map((data) => Product.fromJson(data)).toList();
   }
 }

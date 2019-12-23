@@ -15,7 +15,7 @@ class Product {
   String title;
   String description;
   int price;
-  int category;
+  String categoryName;
   String image = '';
   bool isBestSeller;
   int quantity =0;
@@ -25,7 +25,7 @@ class Product {
     this.title,
     this.description,
     this.price,
-    this.category,
+    this.categoryName,
     this.isBestSeller,
     this.image,
   );
@@ -39,7 +39,7 @@ class Product {
         json["product_name"],
         json["product_description"],
         json["final_price"],
-        json["categories_id"],
+        (json.containsKey('categories'))?json["categories"]["name"]:'',
         (json["is_bestseller"] == 1),
         json["image"],
       );
@@ -49,8 +49,24 @@ class Product {
         "product_name": title,
         "product_description": description,
         "final_price": title,
-        "categories_id": category,
+        "categoryName": categoryName,
         "is_bestseller": isBestSeller,
         "image": image,
       };
 }
+
+// class Category{
+//   int idCategory;
+//   int categoryName;
+
+//   Category({
+//     this.idCategory,
+//     this.categoryName,
+//   });
+//   factory Category.fromJson(Map<String, dynamic> json){
+//     return Category(
+//         idCategory: json['id'],
+//       categoryName: json['name'],
+//     );
+//   }
+// }

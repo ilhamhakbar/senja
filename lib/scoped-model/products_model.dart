@@ -11,7 +11,7 @@ class ProductsModel extends Model {
   List<Product> _cartTemp = [];
   List<Product> _bestSeller = [];
   List<Product> _coffee = [];
-  List<int> categoryNames =[];
+  List<String> categoryList =[];
   // List<Product> _quantity = [];
   List<Item> _items = [];
   List<Map<String, dynamic>> _mapItems = [];
@@ -111,7 +111,7 @@ class ProductsModel extends Model {
     //   true,
     //   'https://jianwenquan.com/wp-content/uploads/2018/09/25443188_1384947164965964_2098746357913615503_n.jpg?x74638',
     // ));
-        splitToCategories();
+        // splitToCategories();
   }
 
   void todayspicklist(List<Product> globalPicks){
@@ -126,12 +126,33 @@ class ProductsModel extends Model {
 
   void productlist(List<Product> globalPicks){
     _products.clear();
+    categoryList.clear();
     for(Product p in globalPicks){
       _products.add(p);
-      categoryNames.add(p.category);
+      categoryList.add(p.categoryName);
+      // print(p.category);
+      //  if(p.category == 3){
+      //   categoryNames.add('Espresso Based');
+      // } else if(p.category == 4){
+      //   categoryNames.add('Single Origin');
+      // } else if(p.category == 6){
+      //   categoryNames.add('Fritters');
+      // } else if(p.category == 7){
+      //   categoryNames.add('Sweet Bites');
+      // } else if(p.category == 9){
+      //   categoryNames.add('Big Bites');
+      // } else if(p.category == 8){
+      //   categoryNames.add('Light Bites');
+      // } else if(p.category == 10){
+      //   categoryNames.add('Coffee Based');
+      // }else if(p.category == 11){
+      //   categoryNames.add('Non Coffee');
+      // }
     }
+    categoryList = categoryList.toSet().toList();
+    print(categoryList);
     // splitToCategories();
-    print(categoryNames);
+    // print(categoryNames);
     // print(products);
             // splitToCategories();
   }
@@ -199,12 +220,12 @@ class ProductsModel extends Model {
   // }
  
 
-  void splitToCategories(){
-    for(Product p in _products){
-      categoryNames.add(p.category);
-    }
-    categoryNames = categoryNames.toSet().toList();
-  }
+  // void splitToCategories(){
+  //   for(Product p in _products){
+  //     categoryNames.add(p.category);
+  //   }
+  //   categoryNames = categoryNames.toSet().toList();
+  // }
 
   void addToMap(){
    for(Item i in _items){

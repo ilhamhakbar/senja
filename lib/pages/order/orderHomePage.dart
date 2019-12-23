@@ -3,7 +3,7 @@ import 'package:scoped_model/scoped_model.dart';
 import 'package:senja/constants/theme.dart';
 import 'package:senja/scoped-model/products_model.dart';
 import 'package:senja/pages/Order/order.dart';
-import 'package:senja/widget/cart/cart_ui.dart';
+import 'package:senja/pages/order/cart/cart_ui.dart';
 
 class OrderHomePage extends StatelessWidget {
   @override

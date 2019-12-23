@@ -7,8 +7,8 @@ import 'package:senja/card/card_widget/bestseller_card.dart';
 
 class CategoryListView extends StatefulWidget {
   final bool isVertical;
-  final String categoryName;
-  CategoryListView({this.isVertical, this.categoryName});
+  final String categoryList;
+  CategoryListView({this.isVertical, this.categoryList});
   @override
   State<StatefulWidget> createState() {
     return CategoryListViewState();
@@ -33,9 +33,9 @@ class CategoryListViewState extends State<CategoryListView> {
         height: 250,
         child: ListView.builder(
           itemBuilder: (BuildContext context, int index) =>
-              _buildBestSellerItems(context, index, products.where((a) => a.category == widget.categoryName).toList()[index], model),
+              _buildBestSellerItems(context, index, products.where((a) => a.categoryName == widget.categoryList).toList()[index], model),
           scrollDirection: Axis.horizontal,
-          itemCount: products.where((a) =>a.category == widget.categoryName).length,
+          itemCount: products.where((a) =>a.categoryName == widget.categoryList).length,
         ),
       );
     } else {
@@ -51,9 +51,9 @@ class CategoryListViewState extends State<CategoryListView> {
         child: ListView.builder(
           shrinkWrap: true,
           physics: ClampingScrollPhysics(),
-          itemBuilder: (BuildContext context, int index) => _buildBestSellerItems(context, index, products.where((a) => a.category == widget.categoryName).toList()[index], model),
+          itemBuilder: (BuildContext context, int index) => _buildBestSellerItems(context, index, products.where((a) => a.categoryName == widget.categoryList).toList()[index], model),
           // scrollDirection: isVertical? Axis.horizontal : Axis.vertical,
-          itemCount: products.where((a) =>a.category == widget.categoryName).length,
+          itemCount: products.where((a) =>a.categoryName == widget.categoryList).length,
         ),
       );
     } else {

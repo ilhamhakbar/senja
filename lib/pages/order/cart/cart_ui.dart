@@ -3,10 +3,10 @@ import 'package:scoped_model/scoped_model.dart';
 import 'package:senja/constants/global.dart';
 import 'package:senja/constants/theme.dart';
 import 'package:senja/scoped-model/products_model.dart';
-import 'package:senja/widget/BookingTempat/tempat_duduk_screen.dart';
-import 'package:senja/widget/cart/cart_list.dart';
-import 'package:senja/widget/payment/Gopay/waiting_gopay.dart';
-import 'package:senja/widget/payment/payment_point.dart';
+import 'package:senja/pages/order/seat/tempat_duduk_screen.dart';
+import 'package:senja/pages/order/cart/cart_list.dart';
+import 'package:senja/pages/order/payment/Gopay/waiting_gopay.dart';
+import 'package:senja/pages/order/payment/payment_point.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class CartPage extends StatefulWidget {

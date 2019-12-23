@@ -3,7 +3,7 @@ import 'package:senja/constants/theme.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:senja/models/tempat_duduk_model.dart';
-import 'package:senja/widget/BookingTempat/tempat_duduk_box.dart';
+import 'package:senja/pages/order/seat/tempat_duduk_box.dart';
 
 class TempatDudukScreen extends StatefulWidget{
 

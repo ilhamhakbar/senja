@@ -4,6 +4,7 @@ import 'package:scoped_model/scoped_model.dart';
 import 'package:senja/constants/url.dart' as uri;
 import 'package:senja/models/product.dart';
 import 'package:senja/scoped-model/products_model.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 
 class BestSellerCard extends StatefulWidget {
 
@@ -64,13 +65,14 @@ class _BestSellerCardState extends State<BestSellerCard> {
                     children: <Widget>[
                       Container(
                           alignment: Alignment.topLeft,
-                          child: Text(widget.product.title, style: h4)),
+                          child: AutoSizeText(widget.product.title, style: h5)),
                       Container(
                         width: sizeHorizontal * 45,
                         padding: EdgeInsets.only(top: 10.0),
-                        child: Text(
+                        child: AutoSizeText(
                           widget.product.description,
                           style: TextStyle(color: Colors.grey),
+                          maxLines: 4,
                         ),
                       ),
                       Container(
