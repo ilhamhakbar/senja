@@ -56,7 +56,7 @@ class _OrderState extends State<Order> {
               Container(
                 child:  ListView.builder(
                   physics: NeverScrollableScrollPhysics(),
-            itemCount: model.categoryList.length,
+            itemCount: model.categoryListOutlet1.length,
             shrinkWrap: true,
             itemBuilder: (context, i){
               return Container(
@@ -65,10 +65,10 @@ class _OrderState extends State<Order> {
                   children: <Widget>[
                     Container(
                        padding: EdgeInsets.all(16),
-                      child: Text(model.categoryList[i]  ,style: h4,),
+                      child: Text(model.categoryListOutlet1[i]  ,style: h4,),
                     ),
                     Container(
-                      child:  CategoryListView(isVertical: false,categoryList: model.categoryList[i],),
+                      child:  CategoryListView(isVertical: false,categoryList: model.categoryListOutlet1[i],),
                     )
                   ],
                 ),

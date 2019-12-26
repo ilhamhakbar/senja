@@ -71,8 +71,8 @@ class CoffeeListViewState extends State<CoffeeListView> {
     return new ScopedModelDescendant<ProductsModel>(
       builder: (BuildContext context, Widget child, ProductsModel model) {
         return widget.isVertical
-            ? _buildCoffeeList(model.products, model)
-            : _buildCoffeeListVertical(model.products, model);
+            ? _buildCoffeeList(model.productsOutlet1, model)
+            : _buildCoffeeListVertical(model.productsOutlet1, model);
       },
     );
   }

@@ -1,17 +1,21 @@
 import 'package:scoped_model/scoped_model.dart';
+import 'package:senja/models/category.dart';
 import 'package:senja/models/product.dart';
 import 'package:senja/models/transaksi.dart';
 // import 'package:http/http.dart' as http;
 // import 'dart:convert';
 
 class ProductsModel extends Model {
+  List<Category> _categories = [];
   List<Product> _picks = [];
-  List<Product> _products = [];
+  List<Product> _productsOutlet1 = [];
+  List<Product> _productsOutlet2 = [];
   List<Product> _cartList = [];
   List<Product> _cartTemp = [];
   List<Product> _bestSeller = [];
   List<Product> _coffee = [];
-  List<String> categoryList =[];
+  List<String> categoryListOutlet1 = [];
+  List<String> categoryListOutlet2 = [];
   // List<Product> _quantity = [];
   List<Item> _items = [];
   List<Map<String, dynamic>> _mapItems = [];
@@ -20,8 +24,10 @@ class ProductsModel extends Model {
   final baseUrl = 'http://api.flutterapp.in/api/';
 
   ProductsModel() {
-    _products.clear();
-    _products = List();
+    _productsOutlet1.clear();
+    _productsOutlet2.clear();
+    _productsOutlet1 = List();
+    _productsOutlet2 = List();
     // _products.add(Product(
     //   1,
     //   'Americano Ice',
@@ -124,12 +130,23 @@ class ProductsModel extends Model {
             // splitToCategories();
   }
 
+void categoryList(List<Category> globalCategories){
+  _categories.clear();
+  for(Category c in globalCategories){
+    _categories.add(c);
+  }
+}
+
   void productlist(List<Product> globalPicks){
-    _products.clear();
-    categoryList.clear();
+    _productsOutlet1.clear();
+    _productsOutlet1.clear();
+    categoryListOutlet1.clear();
+    categoryListOutlet2.clear();
     for(Product p in globalPicks){
-      _products.add(p);
-      categoryList.add(p.categoryName);
+      _productsOutlet1.add(p);
+      _productsOutlet2.add(p);
+      categoryListOutlet1.add(p.categoryName);
+      categoryListOutlet2.add(p.categoryName);
       // print(p.category);
       //  if(p.category == 3){
       //   categoryNames.add('Espresso Based');
@@ -149,16 +166,28 @@ class ProductsModel extends Model {
       //   categoryNames.add('Non Coffee');
       // }
     }
-    categoryList = categoryList.toSet().toList();
-    print(categoryList);
+    categoryListOutlet1 = categoryListOutlet1.toSet().toList();
+        categoryListOutlet2 = categoryListOutlet2.toSet().toList();
+
+    print(categoryListOutlet1);
+        print(categoryListOutlet2);
+
     // splitToCategories();
     // print(categoryNames);
     // print(products);
             // splitToCategories();
   }
 
-  List<Product> get products {
-    return List.from(_products);
+  List<Product> get productsOutlet1 {
+    return List.from(_productsOutlet1);
+  }
+
+  List<Product> get productsOutlet2{
+    return List.from(_productsOutlet2);
+  }
+
+  List<Category> get categories{
+    return List.from(_categories);
   }
   
    List<Product> get picks {

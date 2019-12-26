@@ -52,7 +52,7 @@ class _CartState extends State<Cart>{
   Widget build(BuildContext context) {
     return new ScopedModelDescendant<ProductsModel>(
       builder: (BuildContext context, Widget child, ProductsModel model) {
-        return _buildProductList(model.products, model);
+        return _buildProductList(model.productsOutlet1, model);
       },
     );
   }

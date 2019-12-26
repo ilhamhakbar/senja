@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:scoped_model/scoped_model.dart';
 import 'package:senja/constants/theme.dart';
-import 'package:senja/models/model.dart';
+import 'package:senja/constants/url.dart' as uri;
 import 'package:senja/controllers/foodContoller.dart';
+import 'package:senja/models/category.dart';
 import 'package:senja/pages/order/product_details.dart';
 import 'package:senja/provider/menu_provider.dart';
+import 'package:senja/scoped-model/products_model.dart';
 
 class FoodCardCategory extends StatefulWidget {
   final MenuProvider mp;
@@ -16,21 +19,6 @@ class FoodCardCategory extends StatefulWidget {
 }
 
 class _FoodCardCategoryState extends State<FoodCardCategory> {
-  // MainMenu mainMenu;
-  // bool isLoading = false;
-
-  // init() async {
-  //   setState(() {
-  //     isLoading = true;
-  //   });
-  //   MainMenu _mainMenuTemp;
-  //   _mainMenuTemp = await getMainMenu();
-  //   setState(() {
-  //     mainMenu = _mainMenuTemp;
-  //     isLoading = false;
-  //   });
-  // }
-
   @override
   void initState() {
     super.initState();
@@ -40,6 +28,8 @@ class _FoodCardCategoryState extends State<FoodCardCategory> {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
+    return ScopedModelDescendant(
+        builder: (BuildContext context, Widget child, ProductsModel model) {
     return Container(
         child: Column(
       children: <Widget>[
@@ -62,21 +52,21 @@ class _FoodCardCategoryState extends State<FoodCardCategory> {
                 //         child: CircularProgressIndicator(),
                 //       )
                 //     : 
-                    foodCardCategoryContainer(),
+                    foodCardCategoryContainer(model.categories, model),
               ],
             ),
           ),
         )
       ],
     ));
-  }
+  });}
 
-  renderFoodCategoryCard(Category foodCategory) {
+  renderFoodCategoryCard(BuildContext context, Category category, ProductsModel model) {
     return Container(
       padding: EdgeInsets.all(5.0),
       child: Container(
         decoration: BoxDecoration(
-          image: DecorationImage(image: NetworkImage(foodCategory.image), fit: BoxFit.cover),
+          image: DecorationImage(image: NetworkImage(uri.imageUrl+category.image), fit: BoxFit.cover),
             color: Colors.black.withOpacity(0.5),
             borderRadius: BorderRadius.all(Radius.circular(10))),
         height: 100,
@@ -96,7 +86,7 @@ class _FoodCardCategoryState extends State<FoodCardCategory> {
                   // width: 100,
                   padding: EdgeInsets.only(left: 5.0, right: 5.0, bottom: 25.0),
                   alignment: Alignment.bottomCenter,
-                  child: Text(foodCategory.title,
+                  child: Text(category.name,
                       style: TextStyle(color: Colors.white))),
               Container(
                   // height: 100,
@@ -104,7 +94,7 @@ class _FoodCardCategoryState extends State<FoodCardCategory> {
                   padding: EdgeInsets.only(left: 5.0, right: 5.0, bottom: 10.0),
                   alignment: Alignment.bottomCenter,
                   child: Text(
-                    foodCategory.numbers.toString(),
+                    '5',
                     style: TextStyle(color: Colors.white),
                   )), //Nama makanan
             ],
@@ -113,7 +103,7 @@ class _FoodCardCategoryState extends State<FoodCardCategory> {
     );
   }
 
-  foodCardCategoryContainer() {
+  foodCardCategoryContainer(List<Category> categories,ProductsModel model ) {
     return Container(
       height: 100,
       // decoration: BoxDecoration(
@@ -122,11 +112,8 @@ class _FoodCardCategoryState extends State<FoodCardCategory> {
       child: ListView.builder(
           scrollDirection: Axis.horizontal,
           shrinkWrap: true,
-          itemCount: (widget.mp.mainMenu == null )? 5: widget.mp.mainMenu.cat.length,
-          itemBuilder: (context, i) {
-            return (widget.mp.mainMenu == null)? loadingBox( height: 100,
-        width: 100,): renderFoodCategoryCard(widget.mp.mainMenu.cat[i]);
-          }),
+          itemCount: categories.length,
+          itemBuilder: (BuildContext context, int index,) => renderFoodCategoryCard(context,  categories[index], model)),
     );
   }
 }

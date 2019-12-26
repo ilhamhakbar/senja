@@ -71,8 +71,8 @@ class BestSellerListViewState extends State<BestSellerListView> {
     return new ScopedModelDescendant<ProductsModel>(
       builder: (BuildContext context, Widget child, ProductsModel model) {
         return widget.isVertical
-            ? _buildBestSellerList(model.products, model)
-            : _buildBestSellerListVertical(model.products, model);
+            ? _buildBestSellerList(model.productsOutlet1, model)
+            : _buildBestSellerListVertical(model.productsOutlet1, model);
       },
     );
   }

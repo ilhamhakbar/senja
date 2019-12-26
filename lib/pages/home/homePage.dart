@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:senja/constants/theme.dart';
+import 'package:senja/models/category.dart';
 import 'package:senja/models/product.dart';
 import 'package:senja/pages/home/widget/foodCategory.dart';
 import 'package:senja/pages/home/widget/foodPicks.dart';
@@ -20,15 +21,17 @@ class _HomePageState extends State<HomePage> {
   String name;
   MenuProvider mp;
   List<Product> picks = [];
-  List<Product> products = [];
+  List<Category> categories = [];
+  List<Product> productsOutlet1 = [];
   bool isLoading = false;
 
   init() async {
     setState(() {
       isLoading = true;
     });
-    products =  await getProductOutlet1();
+    productsOutlet1 =  await getProductOutlet1();
     picks = await getTodaysPicks();
+    categories = await getCategory();
     setState(() {
       isLoading = false;
     });
@@ -46,10 +49,11 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return ScopedModelDescendant(
         builder: (BuildContext context, Widget child, ProductsModel model) {
-         if(picks.isNotEmpty  && products.isNotEmpty){
+         if(picks.isNotEmpty  && productsOutlet1.isNotEmpty){
           //  print('hohoihie');
+          model.categoryList(categories);
           model.todayspicklist(picks);
-          model.productlist(products);
+          model.productlist(productsOutlet1);
          } else{
           //  print('hohoho');
          }
@@ -118,7 +122,7 @@ class _HomePageState extends State<HomePage> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    FoodCardCategory(mp: mp),
+                    FoodCardCategory(),
                   ],
                 ),
               ),

@@ -3,20 +3,55 @@ import 'package:senja/auth/login_page.dart';
 import 'package:senja/constants/global.dart';
 import 'package:senja/constants/theme.dart';
 import 'package:senja/utils/utils.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
-class SignUpPage extends StatefulWidget {
+class PhoneVerification extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    return _SignupPageState();
+    return _PhoneVerificationState();
   }
 }
 
-class _SignupPageState extends State<SignUpPage> {
+class _PhoneVerificationState extends State<PhoneVerification> {
+  String phoneNumber;
+  String smsCode;
+  String verificationCode;
+  
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final Map<String, dynamic> _signupData = {
     'phonenumber': null,
     'verication': Null
   };
+
+  Future<void> _submit() async {
+    final PhoneCodeAutoRetrievalTimeout autoRetrievalTimeout = (String verId) {
+      this.verificationCode = verId;
+    };
+
+    final PhoneCodeSent phoneCodeSent = (String verId, [int forceCodeResend]) {
+      this.verificationCode = verId;
+      smsCodeDialog(context).then((value) => print("Signed In"));
+    };
+
+    final PhoneVerificationCompleted phoneVerificationCompleted = (
+        FirebaseUser user) {
+      print("Success");
+    };
+
+    final PhoneVerificationFailed phoneVerificationFailed = (
+        AuthException exception) {
+      print("${exception.message}");
+    };
+
+    await FirebaseAuth.instance.verifyPhoneNumber(
+        phoneNumber: this.phoneNumber,
+        timeout: const Duration(seconds: 5),
+        verificationCompleted: phoneVerificationCompleted,
+        verificationFailed: phoneVerificationFailed,
+        codeSent: phoneCodeSent,
+        codeAutoRetrievalTimeout: autoRetrievalTimeout
+    );
+  }
 
   @override
   Widget build(BuildContext context) {

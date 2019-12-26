@@ -5,7 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:http/http.dart' as http;
 import 'package:senja/constants/global.dart';
-import 'package:senja/auth/signup_page.dart';
+import 'package:senja/auth/signup/phonenumber_verification.dart';
 import 'package:senja/constants/theme.dart';
 import 'package:senja/services/api_services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -290,7 +290,7 @@ class _LoginPageState extends State<LoginPage> {
                     onTap: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => SignUpPage()),
+                        MaterialPageRoute(builder: (context) => PhoneVerification()),
                       );
                     },
                   ),
