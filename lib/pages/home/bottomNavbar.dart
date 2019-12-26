@@ -4,12 +4,16 @@ import 'package:senja/constants/theme.dart';
 import 'package:senja/pages/history/history.dart';
 import 'package:senja/pages/Cafe/cafe.dart';
 import 'package:senja/pages/home/homePage.dart';
+import 'package:senja/pages/order/order.dart';
 import 'package:senja/pages/order/orderHomePage.dart';
 import 'package:senja/pages/profile/profile.dart';
 import 'package:provider/provider.dart';
 import 'package:senja/provider/menu_provider.dart';
 
 class Home extends StatefulWidget {
+  final String outlet;
+
+  Home({this.outlet});
   @override
   _HomeState createState() => _HomeState();
 }
@@ -131,7 +135,9 @@ class _HomeState extends State<Home> {
                 indent: 20,
               ),
               ListTile(
-                onTap: () {},
+                onTap: () {
+                 _selectOutlet1(context);
+                },
                 leading: Container(
                   height: 40,width: 40,child: SvgPicture.asset('assets/images/Frame.svg')),
                 title: Text('Senja Lantai 2',style: h4,),
@@ -141,7 +147,7 @@ class _HomeState extends State<Home> {
                 indent: 20,
               ),
                ListTile(
-                onTap: () {},
+                onTap: () {_selectOutlet2(context);},
                 leading: Container(
                   height: 40,width: 40,child: SvgPicture.asset('assets/images/Frame.svg')),
                 title: Text('Senja Lantai 3',style: h4,),
@@ -149,4 +155,8 @@ class _HomeState extends State<Home> {
             ],
           );
   }
+  void _selectOutlet1(BuildContext context){
+    Navigator.push(context, MaterialPageRoute(builder: (context) => OrderHomePage(outlet: 'Senja1')));}
+    void _selectOutlet2(BuildContext context){
+    Navigator.push(context, MaterialPageRoute(builder: (context) => OrderHomePage(outlet: 'Senja2')));}
 }

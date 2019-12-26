@@ -6,6 +6,8 @@ import 'package:senja/pages/Order/order.dart';
 import 'package:senja/pages/order/cart/cart_ui.dart';
 
 class OrderHomePage extends StatelessWidget {
+  final String outlet;
+  OrderHomePage({Key key, this.outlet}): super (key: key);
   @override
   Widget build(BuildContext context) {
     return ScopedModelDescendant<ProductsModel>(

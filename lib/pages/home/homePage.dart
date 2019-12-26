@@ -20,14 +20,14 @@ class _HomePageState extends State<HomePage> {
   String name;
   MenuProvider mp;
   List<Product> picks = [];
-  List<Product> products = [];
+  List<Product> productsOutlet1 = [];
   bool isLoading = false;
 
   init() async {
     setState(() {
       isLoading = true;
     });
-    products =  await getProductOutlet1();
+    productsOutlet1 =  await getProductOutlet1();
     picks = await getTodaysPicks();
     setState(() {
       isLoading = false;
@@ -46,10 +46,10 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return ScopedModelDescendant(
         builder: (BuildContext context, Widget child, ProductsModel model) {
-         if(picks.isNotEmpty  && products.isNotEmpty){
+         if(picks.isNotEmpty  && productsOutlet1.isNotEmpty){
           //  print('hohoihie');
           model.todayspicklist(picks);
-          model.productlist(products);
+          model.productlist(productsOutlet1);
          } else{
           //  print('hohoho');
          }
