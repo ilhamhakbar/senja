@@ -102,8 +102,6 @@ Future<void> buatTransaksi({
   final gopayUrl = uri.gopay;
   DateTime dateTime = DateTime.now();
 
-  
-
   Map<String, String> header ={
       'Accept' : 'application/json',
       'Authorization' : 'Basic U0ItTWlkLXNlcnZlci1XRTFrTFp6a3JVRDJOUEt6RXdRTENITV8=',

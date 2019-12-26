@@ -158,7 +158,7 @@ class PaymentPointState extends State<PaymentPoint> {
                     Container(
                       padding: EdgeInsets.only(top: 10),
                       child: Text(
-                        "Transfer BCA",
+                        "Credit Card",
                         style: TextStyle(fontFamily: "SFBold"),
                       ),
                     )

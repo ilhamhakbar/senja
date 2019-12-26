@@ -83,26 +83,32 @@ class _HomePageState extends State<HomePage> {
                         child: Image.asset("assets/images/senja_1.png"),
                       ),
                     ),
-                    Container(
-                      width: sizeHorizontal * 70,
-                      padding:
-                          EdgeInsets.only(left: 25.0, right: 5.0, bottom: 60.0),
-                      alignment: Alignment.bottomLeft,
-                      child: (isLoading)
-                          ? loadingBox(height: 200, width: 100)
-                          : Text(
-                              "Morning, " + name,
-                              style: t2,
-                            ),
+                    Positioned(
+                      top: 150,
+                      child: Container(
+                        width: sizeHorizontal * 70,
+                        padding:
+                            EdgeInsets.only(left: 25.0, right: 5.0, bottom: 60.0),
+                        alignment: Alignment.bottomLeft,
+                        child: (isLoading)
+                            ? loadingBox(height: 200, width: 100)
+                            : Text(
+                                "Morning, " + name,
+                                style: t2,
+                              ),
+                      ),
                     ),
-                    Container(
-                      width: sizeHorizontal * 70,
-                      padding:
-                          EdgeInsets.only(left: 25.0, right: 5.0, bottom: 20.0),
-                      alignment: Alignment.bottomLeft,
-                      child: Text(
-                        "Our stoves are heated up!",
-                        style: h2,
+                    Positioned(
+                      top: 180,
+                      child: Container(
+                        width: sizeHorizontal * 70,
+                        padding:
+                            EdgeInsets.only(left: 25.0, right: 5.0, bottom: 20.0),
+                        alignment: Alignment.bottomLeft,
+                        child: Text(
+                          "Our stoves are heated up!",
+                          style: h2,
+                        ),
                       ),
                     )
                   ],

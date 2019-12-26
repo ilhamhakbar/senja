@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:senja/constants/theme.dart';
 import 'package:senja/pages/history/history.dart';
 import 'package:senja/pages/Cafe/cafe.dart';
 import 'package:senja/pages/home/homePage.dart';
@@ -100,7 +102,7 @@ class _HomeState extends State<Home> {
         builder: (context) {
         return Container(
            color: Color(0xFF737373),
-          height: 120,
+          height: 240,
           child: Container(
             child: _selectStoreMenu(),
             decoration: BoxDecoration(
@@ -117,15 +119,32 @@ class _HomeState extends State<Home> {
   Column _selectStoreMenu(){
     return Column(
             children: <Widget>[
+              Container(
+                padding: EdgeInsets.only(top: 15, bottom: 10),
+                child: Column(children: <Widget>[
+                  Container(padding: EdgeInsets.only(bottom: 10),child: Text('Pilih Lokasi',style: TextStyle(fontSize: sizeHorizontal*4.5, fontFamily: 'SFBold'),)),
+                  Container(child: Text('Bantu mudahkan barista kami untuk pengantaran pesanan, ya!', style: TextStyle(fontSize: sizeHorizontal*4, fontFamily: 'SFRegular', color: Colors.grey),))
+                ],),
+              ),
+              Divider(
+                endIndent: 20,
+                indent: 20,
+              ),
               ListTile(
                 onTap: () {},
-                leading: Icon(Icons.ac_unit),
-                title: Text('Senja Lantai 2'),
+                leading: Container(
+                  height: 40,width: 40,child: SvgPicture.asset('assets/images/Frame.svg')),
+                title: Text('Senja Lantai 2',style: h4,),
+              ),
+              Divider(
+                endIndent: 20,
+                indent: 20,
               ),
                ListTile(
                 onTap: () {},
-                leading: Icon(Icons.ac_unit),
-                title: Text('Senja Lantai 3'),
+                leading: Container(
+                  height: 40,width: 40,child: SvgPicture.asset('assets/images/Frame.svg')),
+                title: Text('Senja Lantai 3',style: h4,),
               )
             ],
           );
