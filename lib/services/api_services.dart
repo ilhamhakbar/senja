@@ -28,6 +28,7 @@ Future<User> requestRegister(BuildContext context, String username,
         
       }
     }
+    
 //Login
 Future<User> requestLogin(
     BuildContext context, String username, String password) async {
@@ -71,6 +72,7 @@ Future<List<Category>> getCategory() async {
 
   }
 }
+
 Future<List<Product>> getTodaysPicks() async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
   final todayspickUrl = uri.baseurl + uri.todayspick;
