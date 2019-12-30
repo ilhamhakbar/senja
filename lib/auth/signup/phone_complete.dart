@@ -1,57 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:senja/auth/login_page.dart';
-import 'package:senja/auth/signup/phone_complete.dart';
 import 'package:senja/constants/global.dart';
 import 'package:senja/constants/theme.dart';
 import 'package:senja/utils/utils.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-class PhoneVerification extends StatefulWidget {
+class PhoneComplete extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    return _PhoneVerificationState();
+    return _PhoneCompleteState();
   }
 }
 
-class _PhoneVerificationState extends State<PhoneVerification> {
-  String phoneNumber;
-  String smsCode;
-  String verificationCode;
+class _PhoneCompleteState extends State<PhoneComplete> {
+  
+  String email;
+  String password;
   
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final Map<String, dynamic> _signupData = {
-    'phonenumber': null,
+    'name': null,
     'verication': Null
   };
 
   Future<void> _submit() async {
-    final PhoneCodeAutoRetrievalTimeout autoRetrievalTimeout = (String verId) {
-      this.verificationCode = verId;
-    };
-
-    final PhoneCodeSent phoneCodeSent = (String verId, [int forceCodeResend]) {
-      this.verificationCode = verId;
-      // smsCodeDialog(context).then((value) => print("Signed In"));
-    };
-
-    final PhoneVerificationCompleted phoneVerificationCompleted = (
-        AuthCredential credential) {
-      print("Success");
-    };
-
-    final PhoneVerificationFailed phoneVerificationFailed = (
-        AuthException exception) {
-      print("${exception.message}");
-    };
-
-    await FirebaseAuth.instance.verifyPhoneNumber(
-        phoneNumber: this.phoneNumber,
-        timeout: const Duration(seconds: 5),
-        verificationCompleted: phoneVerificationCompleted,
-        verificationFailed: phoneVerificationFailed,
-        codeSent: phoneCodeSent,
-        codeAutoRetrievalTimeout: autoRetrievalTimeout
-    );
   }
 
   @override
@@ -60,16 +32,16 @@ class _PhoneVerificationState extends State<PhoneVerification> {
   }
 
   Scaffold _buildSignupWidget(GlobalKey formkey, {context: BuildContext}) {
-    Widget _buildPhoneNumberField() {
+    Widget _buildUsernameField() {
       return TextFormField(
         style: TextStyle(color: Colors.grey),
         decoration: InputDecoration(
             fillColor: Color(0xffe7eaf1),
             filled: true,
-            hintText: "(cth. 081212341234)",
+            hintText: "Username",
             hintStyle: TextStyle(
                 color: Colors.grey,
-                fontFamily: "MignonRegular",
+                fontFamily: "SF Regular",
                 fontSize: sizeHorizontal * 5),
             enabledBorder: OutlineInputBorder(
                 borderSide: BorderSide(color: Colors.transparent, width: 0.0),
@@ -77,27 +49,27 @@ class _PhoneVerificationState extends State<PhoneVerification> {
             border: OutlineInputBorder(
                 borderRadius: BorderRadius.all(Radius.circular(5.0)))),
         onSaved: (String value) {
-          _signupData['phonenumber'] = value;
+          _signupData['username'] = value;
         },
       );
     }
 
-    Widget _buildVerificationField() {
+    Widget _buildFullnameField() {
       return Stack(
         alignment: Alignment.centerRight,
         children: <Widget>[
           TextFormField(
             style: TextStyle(
                 color: Colors.grey,
-                fontFamily: "MignonRegular",
+                fontFamily: "SFRegular",
                 fontSize: sizeHorizontal * 5),
             decoration: InputDecoration(
               fillColor: Color(0xffe7eaf1),
               filled: true,
-              hintText: "Masukkan kode verif",
+              hintText: "Nama Lengkap",
               hintStyle: TextStyle(
                   color: Colors.grey,
-                  fontFamily: "MignonRegular",
+                  fontFamily: "SFRegular",
                   fontSize: sizeHorizontal * 5),
               enabledBorder: OutlineInputBorder(
                   borderSide: BorderSide(color: Colors.transparent, width: 0.0),
@@ -109,22 +81,67 @@ class _PhoneVerificationState extends State<PhoneVerification> {
               _signupData['verification'] = value;
             },
           ),
-          Container(
-            padding: EdgeInsets.fromLTRB(0, 0, 10, 0),
-            child: GestureDetector(
-                  onTap: () {},
-                  child: RaisedButton(
-                    color: Colors.green,
-                    shape: new RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(5.0)),
-                    ),
-                    textColor: Colors.white,
-                      child: Text(
-                      "Send Code",
-                      style: t4,
-                    ),
-                  ),
-                ),
+        ],
+      );
+    }
+
+    Widget _buildPasswordField() {
+      return Stack(
+        alignment: Alignment.centerRight,
+        children: <Widget>[
+          TextFormField(
+            style: TextStyle(
+                color: Colors.grey,
+                fontFamily: "SFRegular",
+                fontSize: sizeHorizontal * 5),
+            decoration: InputDecoration(
+              fillColor: Color(0xffe7eaf1),
+              filled: true,
+              hintText: "Password",
+              hintStyle: TextStyle(
+                  color: Colors.grey,
+                  fontFamily: "SFRegular",
+                  fontSize: sizeHorizontal * 5),
+              enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.transparent, width: 0.0),
+                  borderRadius: BorderRadius.circular(5.0)),
+              border: OutlineInputBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(5.0))),
+            ),
+            onSaved: (String value) {
+              _signupData['verification'] = value;
+            },
+          ),
+        ],
+      );
+    }
+
+    Widget _buildEmailField() {
+      return Stack(
+        alignment: Alignment.centerRight,
+        children: <Widget>[
+          TextFormField(
+            style: TextStyle(
+                color: Colors.grey,
+                fontFamily: "SFRegular",
+                fontSize: sizeHorizontal * 5),
+            decoration: InputDecoration(
+              fillColor: Color(0xffe7eaf1),
+              filled: true,
+              hintText: "Email",
+              hintStyle: TextStyle(
+                  color: Colors.grey,
+                  fontFamily: "SFRegular",
+                  fontSize: sizeHorizontal * 5),
+              enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.transparent, width: 0.0),
+                  borderRadius: BorderRadius.circular(5.0)),
+              border: OutlineInputBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(5.0))),
+            ),
+            onSaved: (String value) {
+              _signupData['verification'] = value;
+            },
           ),
         ],
       );
@@ -148,25 +165,8 @@ class _PhoneVerificationState extends State<PhoneVerification> {
                       children: <Widget>[
                         Column(
                           children: <Widget>[
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: <Widget>[
-                                Container(
-                                    padding: EdgeInsets.all(0.0),
-                                    child: GestureDetector(
-                                        onTap: () {
-                                          Navigator.pop(context);
-                                        },
-                                        child: Icon(Icons.arrow_back_ios))),
-                                Container(
-                                    height: 150,
-                                    width: 150,
-                                    child: Image.asset(
-                                        'assets/images/senja_1.png')),
-                              ],
-                            ),
-                            SizedBox(
-                              height: 50,
+                                        SizedBox(
+                              height: 100,
                             )
                           ],
                         ),
@@ -176,14 +176,14 @@ class _PhoneVerificationState extends State<PhoneVerification> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
                               Text(
-                                'Masukkan Nomor Hp',
+                                'Verifikasi Nomor HP Berhasil!',
                                 style: h2,
                               ),
                               SizedBox(
                                 height: sizeHorizontal * 2,
                               ),
                               Text(
-                                'Silakan login dahulu untuk memulai menikmati suasana senja',
+                                'Satu langkah lagi. Kamu perlu memasukkan data berikut untuk melengkapi pendaftaran.',
                                 style: TextStyle(
                                     fontFamily: "MignonRegular",
                                     fontSize: sizeHorizontal * 4,
@@ -192,11 +192,19 @@ class _PhoneVerificationState extends State<PhoneVerification> {
                             ],
                           ),
                         ),
-                        _buildPhoneNumberField(),
+                        _buildUsernameField(),
                         SizedBox(
                           height: 15,
                         ),
-                        _buildVerificationField(),
+                        _buildFullnameField(),
+                        SizedBox(
+                          height: 15,
+                        ),
+                        _buildPasswordField(),
+                        SizedBox(
+                          height: 15,
+                        ),
+                        _buildEmailField(),
                         SizedBox(
                           height: 15,
                         ),
@@ -216,13 +224,17 @@ class _PhoneVerificationState extends State<PhoneVerification> {
                             // color: Theme.of(context).buttonColor,
                             textColor: Colors.white,
                             child: Text(
-                              'Daftar',
+                              'Submit',
                               style: h5,
                             ),
-                            onPressed: () {Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => PhoneComplete()),
-                      );
+                            onPressed: () {
+                              _formKey.currentState.save();
+                              if (!_formKey.currentState.validate()) {
+                                return;
+                              } else {
+                                Navigator.pushReplacementNamed(
+                                    context, '/home');
+                              }
                             },
                           ),
                         ),

@@ -1,9 +1,13 @@
 import 'dart:async';
 import 'dart:convert';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:http/http.dart' as http;
+import 'package:senja/auth/signup/google_complete.dart';
+import 'package:senja/auth/signup/google_signin.dart';
+import 'package:senja/auth/signup/phone_complete.dart';
 import 'package:senja/constants/global.dart';
 import 'package:senja/auth/signup/phonenumber_verification.dart';
 import 'package:senja/constants/theme.dart';
@@ -21,57 +25,8 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  GoogleSignIn _googleSignIn = GoogleSignIn(scopes: ['email']);
-  GoogleSignInAccount _currentUser;
-  String _contactText;
 
   @override
-  void initState() {
-    super.initState();
-    _googleSignIn.onCurrentUserChanged.listen((GoogleSignInAccount account) {
-      setState(() {
-        _currentUser = account;
-      });
-      if (_currentUser != null) {
-        _handleGetContact();}
-    });
-    _googleSignIn.signInSilently();
-
-  }
-  Future <void> _handleGetContact() async {
-    final http.Response response = await http.get(
-      'https://people.googleapis.com/v1/people/me/connections'
-      '?requestMask.includeField=person.names',
-      headers: await _currentUser.authHeaders,
-    );
-    if (response.statusCode != 200) {
-      print(response.body);
-    }
-    // final Map<String, dynamic> data = json.decode(response.body);
-    // final String namedContact = _pickFirstNamedContact(data);
-    // setState(() {
-    //   if (namedContact != null) {
-    //     _contactText = "I see you know $namedContact!";
-    //   } else {
-    //     _contactText = "No contacts to display.";
-    //   }
-    // });
-  }
-
-
-  _loginwithGoogle() async{
-    try{
-      _googleSignIn.signIn();
-    }
-    catch(err){
-      print(err);
-    }
-  }
-
-  doLogin() async {
-    await _googleSignIn.signIn();
-  }
-
   FocusNode usernameFocusNode = FocusNode();
   FocusNode passwordFocusNode = FocusNode();
 
@@ -264,7 +219,17 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ],
               ),
-              onPressed: (){doLogin(); }
+              onPressed: (){
+                signInWithGoogle().whenComplete(() {
+      Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (context) {
+            return GoogleComplete();
+          },
+        ),
+      );
+    });
+              }
             ),
           ),
           Container(
