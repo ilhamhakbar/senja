@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:path/path.dart' as p;
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:senja/auth/signup/signup_complete.dart';
 import 'package:senja/constants/global.dart';
 import 'package:senja/constants/url.dart' as uri;
 import 'package:senja/controllers/userController.dart';
@@ -14,18 +15,44 @@ import 'package:senja/models/transaksi.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+
+
 //Register
-Future<User> requestRegister(BuildContext context, String username,
-    String password, String email) async {
+Future<User> registerWithPhone(BuildContext context, String username,
+    String password, String email, String phone, String fullname) async {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       final registerurl = uri.baseurl + uri.register;
 
-      Map<String, String> body = {'name': username, 'password': password, 'email': email};
+      Map<String, String> body = {'username': username,'password': password, 'email': username+'@gmail.com',  'phone': '+62'+phone, 'name': fullname, 'shop_id': '2'};
 
       final response = await http.post(registerurl, body:body);
-
       if (response.statusCode == 200){
-        
+        Navigator.of(context)
+        .pushAndRemoveUntil(
+    MaterialPageRoute(builder: (BuildContext context) => SignupComplete()),
+    ModalRoute.withName('AuthPage'),
+  );
+    throw new Exception("Registerasi berhasil!");
+      }
+      
+    }
+Future<User> registerWithGmail(BuildContext context, String username,
+    String password, String email, String phone, String fullname) async {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      final registerurl = uri.baseurl + uri.register;
+
+      Map<String, String> body = {'username': username,'password': password, 'email': email,  'phone': '085641728881', 'name': fullname,'shop_id': '2' };
+
+      final response = await http.post(registerurl, body:body);
+      print(body);
+      print(response.body);
+      if (response.statusCode == 200){
+      Navigator.of(context)
+        .pushAndRemoveUntil(
+    MaterialPageRoute(builder: (BuildContext context) => SignupComplete()),
+    ModalRoute.withName('AuthPage'),
+  );
+    throw new Exception("Registerasi berhasil!");
       }
     }
     
@@ -43,6 +70,7 @@ Future<User> requestLogin(
     await saveUserModel(json.decode(response.body));
     prefs.setString('spToken', json.decode(response.body)['token']);
     // print(response.body);
+    Navigator.pop(context);
     Navigator.of(context)
         .pushNamedAndRemoveUntil('Home', (Route<dynamic> route) => false);
     throw new Exception("Anda sukses login");

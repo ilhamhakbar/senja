@@ -1,6 +1,3 @@
-import 'dart:async';
-import 'dart:convert';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -8,6 +5,7 @@ import 'package:http/http.dart' as http;
 import 'package:senja/auth/signup/google_complete.dart';
 import 'package:senja/auth/signup/google_signin.dart';
 import 'package:senja/auth/signup/phone_complete.dart';
+import 'package:senja/auth/signup/signup_complete.dart';
 import 'package:senja/constants/global.dart';
 import 'package:senja/auth/signup/phonenumber_verification.dart';
 import 'package:senja/constants/theme.dart';
@@ -36,7 +34,8 @@ class _LoginPageState extends State<LoginPage> {
   TextEditingController passwordController = TextEditingController(
       // text: '17081945'
       );
-
+      
+  bool _saving = false;
   bool obsecureTextLogin = true;
   bool _isHidePassword = true;
 
@@ -46,12 +45,12 @@ class _LoginPageState extends State<LoginPage> {
     });
   }
 
-  static final _loginKey = GlobalKey<FormState>();
+  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
     return Form(
-      key: _loginKey,
+      key: scaffoldKey,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
@@ -97,12 +96,14 @@ class _LoginPageState extends State<LoginPage> {
           TextFormField(
             focusNode: usernameFocusNode,
             controller: usernameController,
-            style: TextStyle(color: Colors.grey),
+            style: TextStyle(color: Colors.black,
+                fontFamily: "SFRegular",
+                fontSize: sizeHorizontal * 5),
             keyboardType: TextInputType.emailAddress,
             decoration: InputDecoration(
                 fillColor: Color(0xffe7eaf1),
                 filled: true,
-                hintText: "Useranme",
+                hintText: "Username",
                 hintStyle: TextStyle(
                     color: Colors.grey,
                     fontFamily: "SFRegular",
@@ -121,7 +122,7 @@ class _LoginPageState extends State<LoginPage> {
             focusNode: passwordFocusNode,
             controller: passwordController,
             style: TextStyle(
-                color: Colors.grey,
+                color: Colors.black,
                 fontFamily: "SFRegular",
                 fontSize: sizeHorizontal * 5),
             keyboardType: TextInputType.emailAddress,
@@ -173,13 +174,15 @@ class _LoginPageState extends State<LoginPage> {
               ),
               onPressed: () async {
                 SystemChannels.textInput.invokeMethod('TextInput.hide');
+                showDialogLoadingTheme(context: context);
                 try {
                   await requestLogin(
                       context, usernameController.text, passwordController.text);
-                  // print(context);
+                                       // print(context);
                   showInSnackBar(
                       context, widget.scaffoldKey, 'Sukses Login', 4);
                 } catch (e) {
+                  Navigator.pop(context);
                   showInSnackBar(context, widget.scaffoldKey,
                       e.toString().substring(10), 4);
                   print("Ini error: " + e.toString());
@@ -213,7 +216,7 @@ class _LoginPageState extends State<LoginPage> {
                    ),
                   Container(
                     child: Text(
-                      'Sign in with Google',
+                      'Sign up with Google',
                       style: h5,
                     ),
                   ),
@@ -255,7 +258,8 @@ class _LoginPageState extends State<LoginPage> {
                     onTap: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => PhoneVerification()),
+                        // MaterialPageRoute(builder: (context) => SignupComplete()),
+                        MaterialPageRoute(builder: (context) => PhoneVerification(scaffoldKey: scaffoldKey,)),
                       );
                     },
                   ),

@@ -32,15 +32,17 @@ dependencies:
   flutter_svg:
   carousel_pro:
   provider:
-  flutter_gopay_midtrans:
   url_launcher:
+  permission_handler: ^4.0.0
+  flutter_polyline_points: ^0.1.0
+
 
   firebase_core:
   firebase_analytics:
 
   cloud_firestore:
 
-  firebase_auth:
+  firebase_auth: ^0.15.3
   google_sign_in:
   rxdart:
 

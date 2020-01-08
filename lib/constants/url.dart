@@ -1,4 +1,7 @@
 const String baseurl = "https://pos.vantura.id/api/";
+const String emailCheck ="/auth/checkemail?email=";
+const String phoneNumberCheck ="/auth/checkphone?phone=";
+const String usernameCheck ="/auth/checkusername?username=";
 const String imageUrl = "https://pos.vantura.id/images/";
 const String login = "auth/login";
 const String register = "auth/register";

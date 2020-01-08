@@ -33,9 +33,20 @@ void showInSnackBar(BuildContext context, GlobalKey<ScaffoldState> _scaffoldKey,
       value,
       textAlign: TextAlign.center,
       style: TextStyle(
-          color: Colors.white, fontSize: 16.0, fontFamily: "InterUI"),
+          color: Colors.white, fontSize: 16.0, fontFamily: "SFRegular"),
     ),
     backgroundColor: color,
     duration: Duration(milliseconds: 2000),
   ));
+}
+
+showDialogLoadingTheme({BuildContext context}){
+  return showDialog(
+      barrierDismissible: false,
+      context: context,
+      builder: (context)=>Container(
+        child: Center(
+          child: CircularProgressIndicator(),
+        ),
+      ));
 }

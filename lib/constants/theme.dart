@@ -84,7 +84,7 @@ TextStyle ctaWhite = TextStyle(
 
 TextStyle c4({Color color}) {
   return TextStyle(
-      fontSize: sizeHorizontal * 6, fontFamily: "SFBold", color: (color != null)? color:Colors.black);
+      fontSize: sizeHorizontal * 5, fontFamily: "SFRegular", color: (color != null)? color:Colors.black);
 }
 
 TextStyle t4Black =

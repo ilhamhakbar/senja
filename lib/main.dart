@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:senja/auth/login_page.dart';
+import 'package:senja/auth/signup/signup_complete.dart';
 import 'package:senja/pages/Splashscreen/splashscreen.dart';
 import 'package:senja/auth/auth_page.dart';
 import 'package:senja/pages/home/bottomNavbar.dart';
@@ -50,6 +51,7 @@ class SenjaAppState extends State<SenjaApp>{
       routes: {
         'AuthPage' : (BuildContext context)=> AuthPage(),
         'Home' : (BuildContext context)=> Home(),
+        'SignupComplete' : (BuildContext context) => SignupComplete()
       },
       home: SplashScreen(),
     ),);

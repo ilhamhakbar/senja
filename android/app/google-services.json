@@ -1,34 +1,42 @@
 {
   "project_info": {
-    "project_number": "1057193122089",
-    "firebase_url": "https://senjaapp-1574607546219.firebaseio.com",
-    "project_id": "senjaapp-1574607546219",
-    "storage_bucket": "senjaapp-1574607546219.appspot.com"
+    "project_number": "798354981222",
+    "firebase_url": "https://senjacoffee-fe2cb.firebaseio.com",
+    "project_id": "senjacoffee-fe2cb",
+    "storage_bucket": "senjacoffee-fe2cb.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1057193122089:android:a8fd7f55bc0982ae49ff38",
+        "mobilesdk_app_id": "1:798354981222:android:f5a6ec887c74064d69c8a7",
         "android_client_info": {
-          "package_name": "com.vantura.senja"
+          "package_name": "com.example.senja"
         }
       },
       "oauth_client": [
         {
-          "client_id": "1057193122089-pb1us9b8c2hlb9l3n0djjun4d5pvths3.apps.googleusercontent.com",
+          "client_id": "798354981222-lmdn3issrbf7qjr89hfpoat0r2etflgc.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.senja",
+            "certificate_hash": "df5f97b3f524df011e8c9ee01f3468bd97d54074"
+          }
+        },
+        {
+          "client_id": "798354981222-j6fkm9htjkkfjmjjq3qg9hggsbdiu5e7.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyD0SQNKhfSRsF2BXBPSjAwV0Ldv64vs9WM"
+          "current_key": "AIzaSyBKwHaq73SypIZa85hYgfVO92f6xvqqFuQ"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "1057193122089-pb1us9b8c2hlb9l3n0djjun4d5pvths3.apps.googleusercontent.com",
+              "client_id": "798354981222-j6fkm9htjkkfjmjjq3qg9hggsbdiu5e7.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

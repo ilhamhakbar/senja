@@ -20,7 +20,7 @@ class _AuthpageState extends State<AuthPage> {
   }
 
   // Widget currentPage = LoginPage(changePage());
-            final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
+final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
 
   @override
