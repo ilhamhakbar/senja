@@ -295,6 +295,7 @@ class _GoogleCompleteState extends State<GoogleComplete> {
                                 onPressed: () async {
                                   SystemChannels.textInput
                                       .invokeMethod('TextInput.hide');
+                                  showDialogLoadingTheme(context: context);
                                   try {
                                     await registerWithGmail(
                                         context,

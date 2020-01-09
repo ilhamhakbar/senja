@@ -27,6 +27,7 @@ Future<User> registerWithPhone(BuildContext context, String username,
 
       final response = await http.post(registerurl, body:body);
       if (response.statusCode == 200){
+        Navigator.pop(context);
         Navigator.of(context)
         .pushAndRemoveUntil(
     MaterialPageRoute(builder: (BuildContext context) => SignupComplete()),
@@ -47,6 +48,7 @@ Future<User> registerWithGmail(BuildContext context, String username,
       print(body);
       print(response.body);
       if (response.statusCode == 200){
+      Navigator.pop(context);
       Navigator.of(context)
         .pushAndRemoveUntil(
     MaterialPageRoute(builder: (BuildContext context) => SignupComplete()),
@@ -143,39 +145,61 @@ Future<void> buatTransaksi({
   BuildContext context,
   String paymentType,
   // List<Item> items,
-  List<Map<String, dynamic>> lmp,
+  List<Product> lmp,
   Detail transactionDetails,
   Gopay gopay,
+  
 }) async {
-  final gopayUrl = uri.gopay;
-  DateTime dateTime = DateTime.now();
-
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  final gopayUrl = uri.baseurl + uri.order;
   Map<String, String> header = {
-    'Accept': 'application/json',
-    'Authorization':
-        'Basic U0ItTWlkLXNlcnZlci1XRTFrTFp6a3JVRDJOUEt6RXdRTENITV8=',
-    'Content-Type': 'application/json'
+    'Authorization': 'Bearer' + prefs.getString('spToken')
   };
+  DateTime dateTime = DateTime.now();
+  var url = Uri.parse(gopayUrl);
+  var request = http.MultipartRequest("POST",url);
 
-  Map<String, dynamic> body = {
-    'payment_type': 'gopay',
-    'transaction_details': {
-      'order_id': 'Ilham123_senja_' + dateTime.toString(),
-      'gross_amount': transactionDetails.grossAmount
-    },
-    'item_details': lmp,
-  };
+  request.headers.addAll(header);
+  request.fields['outlet_id'] = '1';
+  request.fields['promo_id'] = '0';
+  request.fields['total_final_price'] = transactionDetails.grossAmount.toString();
+  request.fields['total_base_price'] = '10000';
+  request.fields['pickup_time'] = dateTime.toString();
+  request.fields['payment_type'] = paymentType;
+  request.fields['payment_gateway'] = (paymentType == 'ovo')?'xendit':'midtrans';
+  for(int i = 0; i < lmp.length; i++){
+    request.fields['product_id[$i]'] = lmp[i].id.toString();
+    request.fields['qty[$i]'] = lmp[i].quantity.toString();
+    request.fields['base_price[$i]'] = lmp[i].base_price.toString();
+    request.fields['final_price[$i]'] = lmp[i].price.toString();
+    request.fields['message[$i]'] = 'pesan dari Om';
+
+  }
+  // Map<String, dynamic> body = {
+  //   'outlet_id': '1',
+  //   'promo_id': '0',
+  //   'payment_type': paymentType,
+  //   'payment_gateway': (paymentType == 'ovo')?'xendit':'midtrans',
+  //   'transaction_details': {
+  //     'order_id': 'Ilham123_senja_' + dateTime.toString(),
+  //     'gross_amount': transactionDetails.grossAmount
+  //   },
+  //   'item_details': lmp,
+  // };
   // print(body);
   // print('ini jsonnya : ');
-  print(json.encode(body));
+  // print(json.encode(body));
 
-  final response =
-      await http.post(gopayUrl, headers: header, body: json.encode(body));
+  // final response =
+  //     await http.post(gopayUrl, headers: header, body: json.encode(body));
+  
+  var response = await request.send();
+  final responseInString = await response.stream.bytesToString();
 
-  if (json.decode(response.body)['status_code'] == '201') {
+  if (response.statusCode == '201') {
     print('sukses');
-    launch(json.decode(response.body)['actions'][1]['url']);
+    // launch(json.decode(response.body)['actions'][1]['url']);
   } else {
-    print(response.body);
+    print(responseInString);
   }
 }

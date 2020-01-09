@@ -14,6 +14,7 @@ class Product {
   int id;
   String title;
   String description;
+  int base_price;
   int price;
   String categoryName;
   String image = '';
@@ -24,6 +25,7 @@ class Product {
     this.id,
     this.title,
     this.description,
+    this.base_price,
     this.price,
     this.categoryName,
     this.isBestSeller,
@@ -38,6 +40,7 @@ class Product {
         json["id"],
         json["product_name"],
         json["product_description"],
+        json["base_price"],
         json["final_price"],
         (json.containsKey('categories'))?json["categories"]["name"]:'',
         (json["is_bestseller"] == 1),
@@ -48,7 +51,8 @@ class Product {
         "id":id,
         "product_name": title,
         "product_description": description,
-        "final_price": title,
+        "base_price": base_price,
+        "final_price": price,
         "categoryName": categoryName,
         "is_bestseller": isBestSeller,
         "image": image,

@@ -9,9 +9,10 @@ class WaitingGopay extends StatefulWidget {
   final String gopaytoken;
   final String transactionID;
   final String orderId;
+  final String paymentType;
 
   const WaitingGopay(
-      {Key key, this.amount, this.gopaytoken, this.transactionID, this.orderId})
+      {Key key, this.amount, this.gopaytoken, this.transactionID, this.orderId, this.paymentType})
       : super(key: key);
 
   @override
@@ -44,7 +45,7 @@ class _WaitingGopayState extends State<WaitingGopay> {
       return Scaffold(
         bottomNavigationBar: GestureDetector(
           onTap: () {
-            buatTransaksi(lmp: model.mapItems,context: context, transactionDetails: Detail(orderId: widget.orderId,grossAmount: model.getCartPrice));
+            buatTransaksi(lmp: model.getCartList,context: context, paymentType: widget.paymentType,transactionDetails: Detail(orderId: widget.orderId,grossAmount: model.getCartPrice));
             print(model.getCartPrice.toString());
           },
           child: Container(

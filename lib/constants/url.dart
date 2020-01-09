@@ -4,6 +4,7 @@ const String phoneNumberCheck ="/auth/checkphone?phone=";
 const String usernameCheck ="/auth/checkusername?username=";
 const String imageUrl = "https://pos.vantura.id/images/";
 const String login = "auth/login";
+const String order = "order/create";
 const String register = "auth/register";
 const String todayspick = "product/todaypick";
 const String category = "category";

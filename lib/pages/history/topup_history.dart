@@ -4,7 +4,7 @@ class TopupHistory extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       child: Center(
-        child: Text('Tab 1 Layout'),
+        child: Text('Coming Soon!'),
       ),
     );
   }

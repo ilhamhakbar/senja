@@ -537,6 +537,7 @@ class _PhoneVerificationState extends State<PhoneVerification> {
                                           style: h5,
                                         ),
                                         onPressed: () async {
+                                          showDialogLoadingTheme(context: context);
                                           _signInWithPhoneNumber();
                                         },
                                       ),
@@ -618,6 +619,7 @@ class _PhoneVerificationState extends State<PhoneVerification> {
     assert(user.uid == currentUser.uid);
     setState(() {
       if (user != null) {
+        Navigator.pop(context);
         Navigator.push(
           context,
           MaterialPageRoute(

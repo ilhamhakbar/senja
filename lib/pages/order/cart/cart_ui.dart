@@ -157,11 +157,18 @@ class _CartPageState extends State<CartPage>{
                       ),
                       InkWell(
                         onTap: (){
+                          if(
+                            paymentPoint.paymentMethod == 'notvalid'
+                          ){
+                            //
+                          }else{
+                          paymentPoint.paymentMethod;
                           // print('payment sekarang : '+paymentPoint.paymentMethod);
                           model.clearItemMap();
                           model.addToMap();
 
                           Navigator.push(context, MaterialPageRoute(builder: (context) => WaitingGopay()));
+                          }
                         
                         },
                         child: Container(
