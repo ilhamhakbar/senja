@@ -4,6 +4,7 @@ import 'package:senja/auth/login_page.dart';
 import 'package:senja/auth/signup/phone_complete.dart';
 import 'package:senja/constants/global.dart';
 import 'package:senja/constants/theme.dart';
+import 'package:senja/services/api_services.dart';
 import 'package:senja/utils/utils.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -44,7 +45,7 @@ class _PhoneVerificationState extends State<PhoneVerification> {
 
   formValidation() {
     if (_phoneNumberController.text.length > 5) {
-      print('yoot');
+      // print('yoot');
       setState(() {
         isPhoneNumberFilled = true;
       });
@@ -142,7 +143,10 @@ class _PhoneVerificationState extends State<PhoneVerification> {
                                   child: TextFormField(
                                     enabled: false,
                                     keyboardType: TextInputType.phone,
-                                    style: TextStyle(color: Colors.black),
+                                    style: TextStyle(
+                                        color: Colors.black,
+                                        fontFamily: "SFRegular",
+                                        fontSize: sizeHorizontal * 5),
                                     decoration: InputDecoration(
                                         // prefixIcon: Padding(
                                         //       padding: EdgeInsets.all(0.0),
@@ -177,7 +181,10 @@ class _PhoneVerificationState extends State<PhoneVerification> {
                                       TextFormField(
                                         keyboardType: TextInputType.phone,
                                         controller: _phoneNumberController,
-                                        style: TextStyle(color: Colors.black),
+                                        style: TextStyle(
+                                            color: Colors.black,
+                                            fontFamily: "SFRegular",
+                                            fontSize: sizeHorizontal * 5),
                                         decoration: InputDecoration(
                                             // prefixIcon: Padding(
                                             //       padding: EdgeInsets.all(0.0),
@@ -224,15 +231,36 @@ class _PhoneVerificationState extends State<PhoneVerification> {
                                                         'Please enter phone number',
                                                         2);
                                                   } else {
-                                                    _verifyPhoneNumber();
-                                                    SystemChannels.textInput
-                                                        .invokeMethod(
-                                                            'TextInput.hide');
-                                                    showInSnackBar(
-                                                        context,
-                                                        scaffoldKey,
-                                                        'Please check your phone for the verification code',
-                                                        4);
+                                                    try {
+                                                       SystemChannels.textInput
+                                                          .invokeMethod(
+                                                              'TextInput.hide');
+                                                      showDialogLoadingTheme(
+                                                          context: context);
+                                                      await checkPhoneNumber(
+                                                          context: context,
+                                                          phoneNumber:
+                                                              _phoneNumberController
+                                                                  .text);
+                                                                      Navigator.pop(context);
+
+                                                      // _verifyPhoneNumber();
+                                                      showInSnackBar(
+                                                          context,
+                                                          scaffoldKey,
+                                                          'Please check your phone for the verification code',
+                                                          4);
+                                                    } catch (e) {
+                                                          Navigator.pop(context);
+
+                                                      showInSnackBar(
+                                                          context,
+                                                          scaffoldKey,
+                                                          e
+                                                              .toString()
+                                                              .substring(10),
+                                                          4);
+                                                    }
                                                   }
                                                   // _verifyPhoneNumber();
                                                 }
@@ -266,7 +294,7 @@ class _PhoneVerificationState extends State<PhoneVerification> {
                               children: <Widget>[
                                 TextFormField(
                                   controller: _smsController,
-                                   keyboardType: TextInputType.phone,
+                                  keyboardType: TextInputType.phone,
                                   style: TextStyle(
                                       color: Colors.black,
                                       fontFamily: "SFRegular",
@@ -274,7 +302,8 @@ class _PhoneVerificationState extends State<PhoneVerification> {
                                   decoration: InputDecoration(
                                     fillColor: Color(0xffe7eaf1),
                                     filled: true,
-                                    hintText: "Masukkan 6 digit kode verifikasi",
+                                    hintText:
+                                        "Masukkan 6 digit kode verifikasi",
                                     hintStyle: TextStyle(
                                         color: Colors.grey,
                                         fontFamily: "SFRegular",
@@ -315,6 +344,7 @@ class _PhoneVerificationState extends State<PhoneVerification> {
                                   style: h5,
                                 ),
                                 onPressed: () async {
+                                  showDialogLoadingTheme(context: context);
                                   _signInWithPhoneNumber();
                                 },
                               ),
@@ -451,15 +481,29 @@ class _PhoneVerificationState extends State<PhoneVerification> {
                                                 0, 0, 10, 0),
                                             child: GestureDetector(
                                               onTap: () async {
-                                                _verifyPhoneNumber();
                                                 SystemChannels.textInput
                                                     .invokeMethod(
                                                         'TextInput.hide');
-                                                showInSnackBar(
-                                                    context,
-                                                    widget.scaffoldKey,
-                                                    'Please check your phone for the verification code',
-                                                    4);
+                                                try {
+                                                  checkPhoneNumber(
+                                                      phoneNumber: '+62' +
+                                                          _phoneNumberController
+                                                              .text);
+                                                  // _verifyPhoneNumber();
+                                                  showInSnackBar(
+                                                      context,
+                                                      widget.scaffoldKey,
+                                                      'Please check your phone for the verification code',
+                                                      4);
+                                                } catch (e) {
+                                                  showInSnackBar(
+                                                      context,
+                                                      widget.scaffoldKey,
+                                                      e
+                                                          .toString()
+                                                          .substring(10),
+                                                      4);
+                                                }
 
                                                 // _verifyPhoneNumber();
                                               },
@@ -537,7 +581,8 @@ class _PhoneVerificationState extends State<PhoneVerification> {
                                           style: h5,
                                         ),
                                         onPressed: () async {
-                                          showDialogLoadingTheme(context: context);
+                                          showDialogLoadingTheme(
+                                              context: context);
                                           _signInWithPhoneNumber();
                                         },
                                       ),

@@ -41,7 +41,9 @@ class _GoogleCompleteState extends State<GoogleComplete> {
   TextEditingController passwordController = TextEditingController(
       // text: username
       );
-  TextEditingController emailController = TextEditingController(text: email);
+  TextEditingController emailController = TextEditingController(text: email
+    
+  );
   TextEditingController phoneNumberController =
       TextEditingController(text: '085641728881');
 
@@ -71,6 +73,8 @@ class _GoogleCompleteState extends State<GoogleComplete> {
     if (widget.phoneNumber != null) {
       phoneNumberController.text = widget.phoneNumber;
     }
+    fullnameController.addListener(formValidation);
+    passwordController.addListener(formValidation);
   }
 
   @override
@@ -78,6 +82,24 @@ class _GoogleCompleteState extends State<GoogleComplete> {
     // TODO: implement initState
     super.initState();
     init();
+  }
+
+  bool isFullnameFilled = false;
+  bool isPasswordFilled = false;
+
+  formValidation() {
+    if (fullnameController.text.length != 0 && passwordController.text.length != 0) {
+      // print('yoot');
+      setState(() {
+        isFullnameFilled = true;
+        isPasswordFilled = true;
+      });
+    } else {
+      setState(() {
+        isFullnameFilled = false;
+        isPasswordFilled = false;
+      });
+    }
   }
 
   @override
@@ -277,7 +299,7 @@ class _GoogleCompleteState extends State<GoogleComplete> {
                               minWidth: sizeHorizontal * 90,
                               height: sizeHorizontal * 15,
                               child: RaisedButton(
-                                color: Color(0xffbe9b7b),
+                                color: (isFullnameFilled && isPasswordFilled)?Color(0xffbe9b7b):Colors.grey,
                                 shape: new RoundedRectangleBorder(
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(10.0)),
@@ -292,27 +314,29 @@ class _GoogleCompleteState extends State<GoogleComplete> {
                                   'Submit',
                                   style: h5,
                                 ),
-                                onPressed: () async {
+                                onPressed:(isPasswordFilled && isFullnameFilled)? () async {
                                   SystemChannels.textInput
                                       .invokeMethod('TextInput.hide');
                                   showDialogLoadingTheme(context: context);
                                   try {
-                                    await registerWithGmail(
-                                        context,
-                                        usernameController.text,
-                                        passwordController.text,
-                                        emailController.text,
-                                        phoneNumberController.text,
-                                        fullnameController.text);
-                                    // print(context);
-                                    showInSnackBar(context, scaffoldKey,
-                                        'Sukses Login', 4);
-                                  } catch (e) {
+                                    await checkEmail(context:context,username: usernameController.text,email: emailController.text, password: passwordController.text, fullname: fullnameController.text, phone: phoneNumberController.text);
+                                    // await registerWithGmail(
+                                    //     context,
+                                    //     usernameController.text,
+                                    //     passwordController.text,
+                                    //     emailController.text,
+                                    //     phoneNumberController.text,
+                                    //     fullnameController.text);
+                                    // // print(context);
+                                    // showInSnackBar(context, scaffoldKey,
+                                    //     'Sukses Login', 4);
+                                  }
+                                   catch (e) {
                                     showInSnackBar(context, scaffoldKey,
                                         e.toString().substring(10), 4);
                                     print("Ini error: " + e.toString());
                                   }
-                                },
+                                }:null,
                               ),
                             ),
                           ],

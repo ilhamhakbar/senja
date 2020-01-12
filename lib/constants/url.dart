@@ -3,6 +3,8 @@ const String emailCheck ="/auth/checkemail?email=";
 const String phoneNumberCheck ="/auth/checkphone?phone=";
 const String usernameCheck ="/auth/checkusername?username=";
 const String imageUrl = "https://pos.vantura.id/images/";
+const String checkEmail = "auth/checkemail";
+const String checkPhoneNumber = "auth/checkphone";
 const String login = "auth/login";
 const String order = "order/create";
 const String register = "auth/register";

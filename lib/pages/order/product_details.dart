@@ -69,7 +69,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                   Container(
                     child: Text(
                       'Food & Snack',
-                      style: TextStyle(fontSize: sizeHorizontal*5, fontFamily: "MignonRegular", color: Colors.grey),
+                      style: TextStyle(fontSize: sizeHorizontal*5, fontFamily: "SFRegular", color: Colors.grey),
                     ),
                   )
                 ],
